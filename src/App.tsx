@@ -1,9 +1,5 @@
-import React from "react";
-
-import { Header } from "./components/Header/Header";
-
 const App = () => {
-  return <Header />;
+  return null;
 };
 
 export default App;
