@@ -40,6 +40,6 @@
         "newlines-between": "always-and-inside-groups"
       }
     ],
-    "prettier/prettier": "error"
+    "prettier/prettier": ["warn", { "endOfLine": "auto" }]
   }
 }

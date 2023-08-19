@@ -3,7 +3,10 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@mantine/core": "^6.0.19",
+    "@mantine/form": "^6.0.19",
     "@reduxjs/toolkit": "^1.9.5",
+    "@tabler/icons-react": "^2.30.0",
     "@types/jest": "^27.5.2",
     "@types/node": "^16.18.40",
     "@types/react": "^18.2.20",

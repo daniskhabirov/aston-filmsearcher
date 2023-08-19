@@ -3,25 +3,24 @@ import ReactDOM from "react-dom/client";
 
 import "./index.css";
 import { Provider } from "react-redux";
-import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import { RouterProvider } from "react-router-dom";
+import { MantineProvider } from "@mantine/core";
 
 import { store } from "./app/store";
-import Root from "./routes/root";
-
-const router = createBrowserRouter([
-  {
-    path: "/",
-    element: <Root />,
-  },
-]);
+import { router } from "./app/router";
+import App from "./App";
 
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement,
 );
+
 root.render(
   <React.StrictMode>
-    <Provider store={store}>
-      <RouterProvider router={router} />
-    </Provider>
+    <MantineProvider withGlobalStyles withNormalizeCSS>
+      <Provider store={store}>
+        <App />
+        <RouterProvider router={router} />
+      </Provider>
+    </MantineProvider>
   </React.StrictMode>,
 );
