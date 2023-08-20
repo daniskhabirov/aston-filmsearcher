@@ -4,9 +4,9 @@ import { Stack } from "@mantine/core";
 import SearchForm from "../../components/SearchForm/SearchForm";
 
 const HomePage = () => {
-  const handleSubmit = () => {
-    return null;
-  };
+  // logic will be added later
+  // eslint-disable-next-line @typescript-eslint/no-empty-function
+  const handleSubmit = () => {};
 
   return (
     <Stack>
