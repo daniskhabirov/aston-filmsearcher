@@ -24,7 +24,7 @@ const API_KEY = process.env.REACT_APP_API_KEY;
 
 export const apiSlice = createApi({
   reducerPath: "cardsApi",
-  baseQuery: fetchBaseQuery({ baseUrl: "http://www.omdbapi.com" }),
+  baseQuery: fetchBaseQuery({ baseUrl: "https://www.omdbapi.com" }),
   endpoints: (builder) => ({
     fetchCards: builder.query({
       query: ({ search, year, type }) => ({
