@@ -41,5 +41,17 @@ export const apiSlice = createApi({
         return transformedData;
       },
     }),
+
+    fetchCardById: builder.query({
+      query: (id) => ({
+        url: "/",
+        params: { apikey: API_KEY, i: id },
+      }),
+      transformResponse: (data: CardResponse) => {
+        if (data.Response === "False") return null;
+        const result = transformData(data);
+        return Object.fromEntries(result);
+      },
+    }),
   }),
 });

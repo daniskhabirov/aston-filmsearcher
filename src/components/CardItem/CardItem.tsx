@@ -8,6 +8,8 @@ import {
   Button,
 } from "@mantine/core";
 
+import { useNavigate } from "react-router";
+
 import { Card } from "../../api/apiSlice";
 
 interface CardProps {
@@ -15,6 +17,12 @@ interface CardProps {
 }
 
 const CardItem = ({ card }: CardProps) => {
+  const navigate = useNavigate();
+
+  const handleClick = () => {
+    navigate(`/card/${card.imdbID}`);
+  };
+
   return (
     <CardContainer
       shadow="sm"
@@ -36,7 +44,7 @@ const CardItem = ({ card }: CardProps) => {
         <Text size="sm" color="dimmed">
           {card.year}, {card.type}
         </Text>
-        <Button variant="light" radius="md">
+        <Button variant="light" radius="md" onClick={handleClick}>
           More details
         </Button>
       </Stack>
