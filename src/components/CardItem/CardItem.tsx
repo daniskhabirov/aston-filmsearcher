@@ -6,8 +6,6 @@ import {
   Stack,
   Text,
   Button,
-  Group,
-  Badge,
 } from "@mantine/core";
 
 import { Card } from "../../api/apiSlice";
@@ -33,13 +31,10 @@ const CardItem = ({ card }: CardProps) => {
       <CardContainer.Section>
         <Image src={card.poster} height={400} alt="img" />
       </CardContainer.Section>
-      <Stack>
-        <Group position="apart" mt="md">
-          <Text weight={500}>{card.title}</Text>
-          <Badge color="green">{card.year}</Badge>
-        </Group>
+      <Stack mt="md">
+        <Text weight={500}>{card.title}</Text>
         <Text size="sm" color="dimmed">
-          {card.type}
+          {card.year}, {card.type}
         </Text>
         <Button variant="light" radius="md">
           More details
