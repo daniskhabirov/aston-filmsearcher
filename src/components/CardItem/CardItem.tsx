@@ -10,11 +10,11 @@ import {
 
 import { Card } from "../../interfaces";
 
-type CardProps = {
+type Props = {
   card: Card;
 };
 
-const CardItem = ({ card }: CardProps) => {
+const CardItem = ({ card }: Props) => {
   return (
     <CardContainer
       shadow="sm"

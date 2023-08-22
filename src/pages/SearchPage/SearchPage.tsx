@@ -6,7 +6,7 @@ import SearchForm from "../../components/SearchForm/SearchForm";
 import { apiSlice } from "../../api/apiSlice";
 import CardList from "../../components/CardList/CardList";
 import Form from "../../components/SearchForm/Form";
-import { SearchQueryParams } from "../../interfaces/Search";
+import { SearchQueryParams } from "../../interfaces";
 
 const SearchPage = () => {
   const [searchParams] = useSearchParams();
