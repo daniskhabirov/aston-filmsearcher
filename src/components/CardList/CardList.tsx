@@ -1,14 +1,14 @@
 import React from "react";
 import { Box, Flex, Text } from "@mantine/core";
 
-import { Card } from "../../api/apiSlice";
+import { Card } from "../../interfaces";
 import CardItem from "../CardItem/CardItem";
 
-interface CardsProps {
+type Props = {
   cards?: Card[];
-}
+};
 
-const CardList = ({ cards }: CardsProps) => {
+const CardList = ({ cards }: Props) => {
   return (
     <Box>
       {cards && cards?.length > 0 ? (
@@ -18,7 +18,9 @@ const CardList = ({ cards }: CardsProps) => {
           })}
         </Flex>
       ) : (
-        <Text align={"center"}>Please, search movies</Text>
+        <Text align={"center"}>
+          Oh! Movies not found, please search by another parameters...
+        </Text>
       )}
     </Box>
   );

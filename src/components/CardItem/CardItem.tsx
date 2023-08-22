@@ -8,11 +8,11 @@ import {
   Button,
 } from "@mantine/core";
 
-import { Card } from "../../api/apiSlice";
+import { Card } from "../../interfaces";
 
-interface CardProps {
+type CardProps = {
   card: Card;
-}
+};
 
 const CardItem = ({ card }: CardProps) => {
   return (

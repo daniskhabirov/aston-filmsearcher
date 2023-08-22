@@ -2,37 +2,25 @@ import React from "react";
 import { LoadingOverlay, Stack } from "@mantine/core";
 import { useNavigate, useSearchParams } from "react-router-dom";
 
-import { useForm } from "@mantine/form";
-
 import SearchForm from "../../components/SearchForm/SearchForm";
 import { apiSlice } from "../../api/apiSlice";
 import CardList from "../../components/CardList/CardList";
-import { searchValidate } from "../../utils/validate";
-
-interface QueryParams {
-  search: string;
-  year: string;
-  type: string;
-}
+import Form from "../../components/SearchForm/Form";
+import { SearchQueryParams } from "../../interfaces/Search";
 
 const SearchPage = () => {
   const [searchParams] = useSearchParams();
   const navigate = useNavigate();
 
-  const params: QueryParams = {
+  const queryParams: SearchQueryParams = {
     search: searchParams.get("search") || "",
     year: searchParams.get("year") || "",
     type: searchParams.get("type") || "",
   };
 
-  const { data: cards, isFetching } = apiSlice.useFetchCardsQuery(params);
+  const { data: cards, isFetching } = apiSlice.useFetchCardsQuery(queryParams);
 
-  const form = useForm({
-    initialValues: { ...params },
-    validate: {
-      search: searchValidate,
-    },
-  });
+  const form = Form({ initialValues: { ...queryParams } });
 
   const handleSubmit = () => {
     navigate(

@@ -1,25 +1,13 @@
 import React from "react";
-import { Stack } from "@mantine/core";
 import { useNavigate } from "react-router-dom";
 
-import { useForm } from "@mantine/form";
-
 import SearchForm from "../../components/SearchForm/SearchForm";
-import { searchValidate } from "../../utils/validate";
+import Form from "../../components/SearchForm/Form";
 
 const HomePage = () => {
   const navigate = useNavigate();
 
-  const form = useForm({
-    initialValues: {
-      search: "",
-      year: "",
-      type: "",
-    },
-    validate: {
-      search: searchValidate,
-    },
-  });
+  const form = Form();
 
   const handleSubmit = () => {
     navigate(
@@ -27,11 +15,7 @@ const HomePage = () => {
     );
   };
 
-  return (
-    <Stack>
-      <SearchForm form={form} handleSubmit={handleSubmit} />
-    </Stack>
-  );
+  return <SearchForm form={form} handleSubmit={handleSubmit} />;
 };
 
 export default HomePage;
