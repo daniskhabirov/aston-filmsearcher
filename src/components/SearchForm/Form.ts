@@ -1,6 +1,6 @@
 import { useForm } from "@mantine/form";
 
-import { searchFormValidate } from "../../utils/validate";
+import { searchValueValidate } from "../../utils/validate";
 
 const defaultProps: props = {
   initialValues: {
@@ -22,7 +22,7 @@ const Form = ({ initialValues }: props = defaultProps) => {
   return useForm({
     initialValues: initialValues,
     validate: {
-      search: searchFormValidate,
+      search: searchValueValidate,
     },
   });
 };
