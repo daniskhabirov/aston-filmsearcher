@@ -1,33 +1,37 @@
 import React from "react";
-import { Checkbox, Grid, Table, Text } from "@mantine/core";
+import { ActionIcon, Grid, Table, Text } from "@mantine/core";
 import { useNavigate } from "react-router-dom";
+
+import { IconTrash } from "@tabler/icons-react";
 
 import { useAppSelector } from "../../hooks/reduxHooks";
 
 import { getHistoryItems } from "../../app/reducers/selectors";
+
+import useHistory from "../../hooks/useHistory";
 
 import styles from "./HistoryPage.module.css";
 
 const HistoryPage = () => {
   const navigate = useNavigate();
   const historyItems = useAppSelector(getHistoryItems);
+  const { deleteHistoryById } = useHistory();
+
+  const deleteHistoryClick = (historyId: string) => {
+    deleteHistoryById(historyId);
+  };
 
   return (
     <Grid>
       <Grid.Col>
-        <Text align="center">My search history</Text>
-      </Grid.Col>
-      <Grid.Col>
         <Table className={styles.table}>
           <thead>
             <tr>
-              <th>
-                <Checkbox sx={{ input: { cursor: "pointer" } }} />
-              </th>
               <th>Search</th>
               <th>Year</th>
               <th>Type</th>
               <th>Date</th>
+              <th>Actions</th>
             </tr>
           </thead>
           <tbody>
@@ -40,16 +44,22 @@ const HistoryPage = () => {
                   );
                 }}
               >
+                <td style={{ width: "60%" }}>{element.search}</td>
+                <td style={{ width: "10%" }}>{element.year}</td>
+                <td style={{ width: "10%" }}>{element.type}</td>
+                <td style={{ width: "15%" }}>{element.date}</td>
                 <td
-                  style={{ width: 40, cursor: "default" }}
+                  align="center"
+                  style={{ width: "5%", cursor: "default" }}
                   onClick={(e) => e.stopPropagation()}
                 >
-                  <Checkbox sx={{ input: { cursor: "pointer" } }} />
+                  <ActionIcon
+                    onClick={() => deleteHistoryClick(element.id)}
+                    className={styles.icon}
+                  >
+                    <IconTrash />
+                  </ActionIcon>
                 </td>
-                <td>{element.search}</td>
-                <td>{element.year}</td>
-                <td>{element.type}</td>
-                <td>{element.date}</td>
               </tr>
             ))}
           </tbody>

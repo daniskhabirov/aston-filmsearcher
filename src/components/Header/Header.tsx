@@ -29,7 +29,7 @@ const Header = () => {
   return (
     <HeaderContainer height={60} className={styles.root}>
       <Container className={styles.header}>
-        <ActionIcon component={Link} to="/" className={styles.icon}>
+        <ActionIcon component={Link} to="/">
           <IconGhost2 />
         </ActionIcon>
         <Group>{items}</Group>

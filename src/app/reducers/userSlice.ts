@@ -13,9 +13,18 @@ const userSlice = createSlice({
     historyAdded(state, action) {
       state.historyItems.push(action.payload);
     },
+    historyDeletedById(state, action) {
+      state.historyItems = state.historyItems.filter(
+        (item) => item.id !== action.payload,
+      );
+    },
+    allHistoryDeleted(state) {
+      state.historyItems = [];
+    },
   },
 });
 
-export const { historyAdded } = userSlice.actions;
+export const { historyAdded, historyDeletedById, allHistoryDeleted } =
+  userSlice.actions;
 
 export default userSlice.reducer;
