@@ -3,3 +3,9 @@ export interface SearchQueryParams {
   year: string;
   type: string;
 }
+
+export interface SearchFormValues {
+  search: string;
+  year: string;
+  type: string;
+}

@@ -25,8 +25,7 @@ export const apiSlice = createApi({
       }),
       transformResponse: (data: SearchResponse) => {
         if (data.Response === "False") return [];
-        const transformedData = data.Search.map((item) => transformData(item));
-        return transformedData;
+        return data.Search.map(transformData);
       },
     }),
   }),
