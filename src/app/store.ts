@@ -1,13 +1,13 @@
 import { configureStore } from "@reduxjs/toolkit";
 
-import { apiSlice } from "../api/apiSlice";
+import { omdbApi } from "../api/omdbApi";
+
+import rootReducer from "./reducers/rootReducer";
 
 export const store = configureStore({
-  reducer: {
-    [apiSlice.reducerPath]: apiSlice.reducer,
-  },
+  reducer: rootReducer,
   middleware: (getDefaultMiddleware) =>
-    getDefaultMiddleware().concat(apiSlice.middleware),
+    getDefaultMiddleware().concat(omdbApi.middleware),
 });
 
 export type RootState = ReturnType<typeof store.getState>;

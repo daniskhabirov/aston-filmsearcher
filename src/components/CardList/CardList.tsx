@@ -1,6 +1,8 @@
 import React from "react";
 import { Box, Flex, Text } from "@mantine/core";
 
+import { useSearchParams } from "react-router-dom";
+
 import { Card } from "../../interfaces";
 import CardItem from "../CardItem/CardItem";
 
@@ -9,6 +11,9 @@ type Props = {
 };
 
 const CardList = ({ cards }: Props) => {
+  const [searchParams] = useSearchParams();
+  const searchParamFilled = !!searchParams.get("search");
+
   return (
     <Box>
       {cards && cards?.length > 0 ? (
@@ -19,7 +24,9 @@ const CardList = ({ cards }: Props) => {
         </Flex>
       ) : (
         <Text align={"center"}>
-          Oh! Movies not found, please search by another parameters...
+          {searchParamFilled
+            ? "Oh! Movies not found..."
+            : "Please, search movies..."}
         </Text>
       )}
     </Box>
