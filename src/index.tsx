@@ -2,13 +2,12 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 
 import "./index.css";
-import { Provider } from "react-redux";
-import { RouterProvider } from "react-router-dom";
+import { Provider as ReduxProvider } from "react-redux";
 import { MantineProvider } from "@mantine/core";
 
-import { store } from "./app/store";
-import { router } from "./app/router";
 import App from "./App";
+
+import { store } from "./app/store";
 
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement,
@@ -17,10 +16,9 @@ const root = ReactDOM.createRoot(
 root.render(
   <React.StrictMode>
     <MantineProvider withGlobalStyles withNormalizeCSS>
-      <Provider store={store}>
+      <ReduxProvider store={store}>
         <App />
-        <RouterProvider router={router} />
-      </Provider>
+      </ReduxProvider>
     </MantineProvider>
   </React.StrictMode>,
 );

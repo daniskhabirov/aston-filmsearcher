@@ -2,28 +2,20 @@ import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 
 import transformData from "../utils/transformData";
 
-export interface CardResponse {
-  [key: string]: string;
-}
+const API_KEY = process.env.REACT_APP_API_KEY;
 
-export interface Card {
-  poster: string;
-  title: string;
-  type: string;
-  year: string;
-  imdbID: string;
+interface SearchResult {
+  [key: string]: string;
 }
 
 export interface SearchResponse {
   Response: string;
-  Search: CardResponse[];
+  Search: SearchResult[];
   totalResults: number;
 }
 
-const API_KEY = process.env.REACT_APP_API_KEY;
-
-export const apiSlice = createApi({
-  reducerPath: "cardsApi",
+export const omdbApi = createApi({
+  reducerPath: "omdbApi",
   baseQuery: fetchBaseQuery({ baseUrl: "https://www.omdbapi.com" }),
   endpoints: (builder) => ({
     fetchCards: builder.query({
@@ -33,11 +25,7 @@ export const apiSlice = createApi({
       }),
       transformResponse: (data: SearchResponse) => {
         if (data.Response === "False") return [];
-        const transformedData = data.Search.map((item) => {
-          const result = transformData(item);
-          return Object.fromEntries(result);
-        });
-
+        const transformedData = data.Search.map((item) => transformData(item));
         return transformedData;
       },
     }),

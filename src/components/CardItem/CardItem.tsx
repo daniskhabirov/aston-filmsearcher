@@ -10,13 +10,13 @@ import {
 
 import { useNavigate } from "react-router";
 
-import { Card } from "../../api/apiSlice";
+import { Card } from "../../interfaces";
 
-interface CardProps {
+type Props = {
   card: Card;
-}
+};
 
-const CardItem = ({ card }: CardProps) => {
+const CardItem = ({ card }: Props) => {
   const navigate = useNavigate();
 
   const handleClick = () => {
