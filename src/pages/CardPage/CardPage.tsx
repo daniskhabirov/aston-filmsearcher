@@ -11,11 +11,11 @@ import {
 
 import { useParams } from "react-router-dom";
 
-import { apiSlice } from "../../api/apiSlice";
+import { omdbApi } from "../../api/omdbApi";
 
 const CardPage = () => {
   const { id } = useParams();
-  const { data: card, isFetching } = apiSlice.useFetchCardByIdQuery(id);
+  const { data: card, isFetching } = omdbApi.useFetchCardByIdQuery(id);
 
   type MovieProps = {
     propName: string;

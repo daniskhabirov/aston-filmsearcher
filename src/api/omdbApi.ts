@@ -25,8 +25,7 @@ export const omdbApi = createApi({
       }),
       transformResponse: (data: SearchResponse) => {
         if (data.Response === "False") return [];
-        const transformedData = data.Search.map((item) => transformData(item));
-        return transformedData;
+        return data.Search.map(transformData);
       },
     }),
 
@@ -35,10 +34,9 @@ export const omdbApi = createApi({
         url: "/",
         params: { apikey: API_KEY, i: id },
       }),
-      transformResponse: (data: CardResponse) => {
+      transformResponse: (data: SearchResult) => {
         if (data.Response === "False") return null;
-        const result = transformData(data);
-        return Object.fromEntries(result);
+        return transformData(data);
       },
     }),
   }),
