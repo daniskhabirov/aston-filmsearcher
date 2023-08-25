@@ -6,22 +6,24 @@ import SearchInput from "../SearchInput/SearchInput";
 import YearInput from "../YearInput/YearInput";
 import TypeInput from "../TypeInput/TypeInput";
 
-type Props = {
-  form: UseFormReturnType<{
-    search: string;
-    year: string;
-    type: string;
-  }>;
+export interface SearchFormValues {
+  search: string;
+  year: string;
+  type: string;
+}
+
+interface Props {
+  form: UseFormReturnType<SearchFormValues>;
   handleSubmit: () => void;
-};
+}
 
 const SearchForm = ({ form, handleSubmit }: Props) => {
   return (
     <form onSubmit={form.onSubmit(handleSubmit)}>
       <Flex justify="center" gap={5} sx={{ marginTop: "15px" }}>
-        <SearchInput props={form.getInputProps("search")} />
-        <YearInput props={form.getInputProps("year")} />
-        <TypeInput props={form.getInputProps("type")} />
+        <SearchInput search={form.getInputProps("search")} />
+        <YearInput year={form.getInputProps("year")} />
+        <TypeInput type={form.getInputProps("type")} />
         <Button type="submit">Search</Button>
       </Flex>
     </form>

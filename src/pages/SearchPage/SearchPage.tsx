@@ -2,11 +2,18 @@ import React from "react";
 import { LoadingOverlay, Stack } from "@mantine/core";
 import { useNavigate, useSearchParams } from "react-router-dom";
 
+import { useForm } from "@mantine/form";
+
 import SearchForm from "../../components/SearchForm/SearchForm";
 import { omdbApi } from "../../api/omdbApi";
 import CardList from "../../components/CardList/CardList";
-import Form from "../../components/SearchForm/Form";
-import { SearchQueryParams } from "../../interfaces";
+import { SearchFormValues } from "../../components/SearchForm/SearchForm";
+
+interface SearchQueryParams {
+  search: string;
+  year: string;
+  type: string;
+}
 
 import useHistory from "../../hooks/useHistory";
 
@@ -23,7 +30,7 @@ const SearchPage = () => {
 
   const { data: cards, isFetching } = omdbApi.useFetchCardsQuery(queryParams);
 
-  const form = Form({ initialValues: { ...queryParams } });
+  const form = useForm<SearchFormValues>({ initialValues: { ...queryParams } });
 
   const handleSubmit = () => {
     addHistoryItem({ searchValue: form.values });

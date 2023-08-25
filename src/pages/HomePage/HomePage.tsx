@@ -1,15 +1,25 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 
+import { useForm } from "@mantine/form";
+
 import SearchForm from "../../components/SearchForm/SearchForm";
-import Form from "../../components/SearchForm/Form";
+import { SearchFormValues } from "../../components/SearchForm/SearchForm";
 import useHistory from "../../hooks/useHistory";
 
 const HomePage = () => {
   const navigate = useNavigate();
   const { addHistoryItem } = useHistory();
 
-  const form = Form();
+  const initialValues = {
+    search: "",
+    year: "",
+    type: "",
+  };
+
+  const form = useForm<SearchFormValues>({
+    initialValues: { ...initialValues },
+  });
 
   const handleSubmit = () => {
     addHistoryItem({ searchValue: form.values });

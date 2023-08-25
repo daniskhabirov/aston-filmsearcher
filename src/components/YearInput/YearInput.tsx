@@ -1,12 +1,12 @@
 import React from "react";
 import { TextInput, InputProps } from "@mantine/core";
 
-type Props = {
-  props: InputProps;
-};
+interface Props {
+  year: InputProps;
+}
 
-const YearInput = ({ props }: Props) => {
-  return <TextInput type="number" placeholder="Release year" {...props} />;
+const YearInput = ({ year }: Props) => {
+  return <TextInput type="number" placeholder="Release year" {...year} />;
 };
 
 export default YearInput;

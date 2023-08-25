@@ -1,13 +1,14 @@
 import React from "react";
 import { InputProps, Select } from "@mantine/core";
 
-type Props = {
-  props: InputProps;
-};
+const types = ["movie", "series", "episode"];
 
-const TypeInput = ({ props }: Props) => {
-  const types = ["movie", "series", "episode"];
-  return <Select allowDeselect placeholder="Type" data={types} {...props} />;
+interface Props {
+  type: InputProps;
+}
+
+const TypeInput = ({ type }: Props) => {
+  return <Select allowDeselect placeholder="Type" data={types} {...type} />;
 };
 
 export default TypeInput;
