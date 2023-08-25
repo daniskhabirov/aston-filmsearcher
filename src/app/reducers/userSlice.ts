@@ -1,6 +1,10 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-import { UserState } from "../../interfaces";
+import { HistoryItem } from "../../types";
+
+interface UserState {
+  historyItems: HistoryItem[];
+}
 
 const initialState: UserState = {
   historyItems: [],

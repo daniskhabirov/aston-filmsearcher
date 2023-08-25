@@ -22,7 +22,7 @@ const HomePage = () => {
   });
 
   const handleSubmit = () => {
-    addHistoryItem({ searchValue: form.values });
+    addHistoryItem({ searchValues: form.values });
     navigate(
       `/search?search=${form.values.search}&year=${form.values.year}&type=${form.values.type}`,
     );

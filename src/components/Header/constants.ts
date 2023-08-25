@@ -1,6 +1,4 @@
-import { HeaderLink } from "../../interfaces/Header";
-
-export const LINKS: HeaderLink[] = [
+export const LINKS = [
   { link: "/", label: "Home" },
   { link: "/search", label: "Search" },
   { link: "/history", label: "History" },
