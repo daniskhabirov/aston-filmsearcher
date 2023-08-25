@@ -1,5 +1,5 @@
 import React from "react";
-import { ActionIcon, Grid, Table, Text } from "@mantine/core";
+import { ActionIcon, Grid, Table } from "@mantine/core";
 import { useNavigate } from "react-router-dom";
 
 import { IconTrash } from "@tabler/icons-react";

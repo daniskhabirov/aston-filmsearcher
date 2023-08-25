@@ -25,7 +25,6 @@ const useHistory = () => {
           id,
           ...searchValue,
           date,
-          checked: false,
         }),
       );
     },
