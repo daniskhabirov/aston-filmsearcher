@@ -1,12 +1,12 @@
 import React from "react";
-import { TextInput, TextInputProps } from "@mantine/core";
+import { TextInput, InputProps } from "@mantine/core";
 import { IconSearch } from "@tabler/icons-react";
 
-type SearchInputProps = {
-  search: TextInputProps;
-};
+interface Props {
+  search: InputProps;
+}
 
-const SearchInput = ({ search }: SearchInputProps) => {
+const SearchInput = ({ search }: Props) => {
   return (
     <TextInput
       sx={{ width: "300px" }}
