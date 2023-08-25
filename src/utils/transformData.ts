@@ -1,8 +1,7 @@
-type Entries = {
-  [key: string]: string;
-};
+import { Entity } from "../api/apiSlice";
+import { Card } from "../components/CardItem/CardItem";
 
-const transformData = (data: Entries) => {
+const transformData = (data: Entity): Card => {
   const entries = Object.entries(data);
   const transformedData = entries.map(([key, value]) => {
     return [key[0].toLowerCase() + key.slice(1), value];

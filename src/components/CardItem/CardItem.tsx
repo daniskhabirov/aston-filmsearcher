@@ -8,11 +8,17 @@ import {
   Button,
 } from "@mantine/core";
 
-import { Card } from "../../interfaces";
+export interface Card {
+  poster: string;
+  title: string;
+  type: string;
+  year: string;
+  imdbID: string;
+}
 
-type Props = {
+interface Props {
   card: Card;
-};
+}
 
 const CardItem = ({ card }: Props) => {
   return (

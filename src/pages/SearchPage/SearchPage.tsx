@@ -7,7 +7,13 @@ import { useForm } from "@mantine/form";
 import SearchForm from "../../components/SearchForm/SearchForm";
 import { apiSlice } from "../../api/apiSlice";
 import CardList from "../../components/CardList/CardList";
-import { SearchFormValues, SearchQueryParams } from "../../interfaces";
+import { SearchFormValues } from "../../components/SearchForm/SearchForm";
+
+interface SearchQueryParams {
+  search: string;
+  year: string;
+  type: string;
+}
 
 const SearchPage = () => {
   const [searchParams] = useSearchParams();

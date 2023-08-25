@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { useForm } from "@mantine/form";
 
 import SearchForm from "../../components/SearchForm/SearchForm";
-import { SearchFormValues } from "../../interfaces";
+import { SearchFormValues } from "../../components/SearchForm/SearchForm";
 
 const HomePage = () => {
   const navigate = useNavigate();

@@ -2,9 +2,9 @@ import React from "react";
 import { TextInput, InputProps } from "@mantine/core";
 import { IconSearch } from "@tabler/icons-react";
 
-type Props = {
+interface Props {
   search: InputProps;
-};
+}
 
 const SearchInput = ({ search }: Props) => {
   return (

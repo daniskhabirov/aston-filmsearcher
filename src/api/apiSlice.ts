@@ -4,13 +4,13 @@ import transformData from "../utils/transformData";
 
 const API_KEY = process.env.REACT_APP_API_KEY;
 
-interface SearchResult {
+export interface Entity {
   [key: string]: string;
 }
 
 export interface SearchResponse {
   Response: string;
-  Search: SearchResult[];
+  Search: Entity[];
   totalResults: number;
 }
 

@@ -2,13 +2,13 @@ import { useForm } from "@mantine/form";
 
 import { validateSearchValue } from "../../utils/validate";
 
-type props = {
+interface props {
   initialValues: {
     search: string;
     year: string;
     type: string;
   };
-};
+}
 
 const Form = ({ initialValues }: props) => {
   return useForm({

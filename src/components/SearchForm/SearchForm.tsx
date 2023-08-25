@@ -5,12 +5,17 @@ import { UseFormReturnType } from "@mantine/form";
 import SearchInput from "../SearchInput/SearchInput";
 import YearInput from "../YearInput/YearInput";
 import TypeInput from "../TypeInput/TypeInput";
-import { SearchFormValues } from "../../interfaces";
 
-type Props = {
+export interface SearchFormValues {
+  search: string;
+  year: string;
+  type: string;
+}
+
+interface Props {
   form: UseFormReturnType<SearchFormValues>;
   handleSubmit: () => void;
-};
+}
 
 const SearchForm = ({ form, handleSubmit }: Props) => {
   return (

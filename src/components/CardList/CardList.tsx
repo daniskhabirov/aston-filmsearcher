@@ -1,12 +1,12 @@
 import React from "react";
 import { Box, Flex, Text } from "@mantine/core";
 
-import { Card } from "../../interfaces";
+import { Card } from "../CardItem/CardItem";
 import CardItem from "../CardItem/CardItem";
 
-type Props = {
+interface Props {
   cards?: Card[];
-};
+}
 
 const CardList = ({ cards }: Props) => {
   return (
