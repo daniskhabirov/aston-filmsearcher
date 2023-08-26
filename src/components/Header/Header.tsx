@@ -9,12 +9,16 @@ import { Link, NavLink } from "react-router-dom";
 
 import { IconGhost2 } from "@tabler/icons-react";
 
-import { LINKS } from "./constants";
-
 import styles from "./Header.module.css";
 
+const LINKS = [
+  { link: "/", label: "Home" },
+  { link: "/search", label: "Search" },
+  { link: "/history", label: "History" },
+];
+
 const Header = () => {
-  const items = LINKS.map((link) => (
+  const navLinks = LINKS.map((link) => (
     <NavLink
       key={link.label}
       to={link.link}
@@ -32,7 +36,7 @@ const Header = () => {
         <ActionIcon component={Link} to="/">
           <IconGhost2 />
         </ActionIcon>
-        <Group>{items}</Group>
+        <Group>{navLinks}</Group>
       </Container>
     </HeaderContainer>
   );
