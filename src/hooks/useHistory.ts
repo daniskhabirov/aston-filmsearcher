@@ -3,27 +3,27 @@ import { useDispatch } from "react-redux";
 
 import { collection, deleteDoc, doc, setDoc } from "firebase/firestore";
 
-import { SearchQueryParams } from "../interfaces";
 import { db } from "../utils/firebase";
 import { historyAdded, historyDeletedById } from "../app/reducers/userSlice";
+import { SearchFormValues } from "../components/SearchForm/SearchForm";
 
-type HistoryItemProps = {
-  searchValue: SearchQueryParams;
-};
+interface HistoryItemProps {
+  searchValues: SearchFormValues;
+}
 
 const useHistory = () => {
   const dispatch = useDispatch();
 
   const addHistoryItem = useCallback(
-    ({ searchValue }: HistoryItemProps) => {
+    ({ searchValues }: HistoryItemProps) => {
       const date = new Date().toLocaleString();
       const newHistoryRef = doc(collection(db, "history"));
-      setDoc(newHistoryRef, searchValue);
+      setDoc(newHistoryRef, searchValues);
       const { id } = newHistoryRef;
       dispatch(
         historyAdded({
           id,
-          ...searchValue,
+          ...searchValues,
           date,
         }),
       );

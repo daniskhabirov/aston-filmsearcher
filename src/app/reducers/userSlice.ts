@@ -1,6 +1,10 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-import { UserState } from "../../interfaces";
+import { HistoryItem } from "../../types";
+
+interface UserState {
+  historyItems: HistoryItem[];
+}
 
 const initialState: UserState = {
   historyItems: [],
@@ -18,13 +22,9 @@ const userSlice = createSlice({
         (item) => item.id !== action.payload,
       );
     },
-    allHistoryDeleted(state) {
-      state.historyItems = [];
-    },
   },
 });
 
-export const { historyAdded, historyDeletedById, allHistoryDeleted } =
-  userSlice.actions;
+export const { historyAdded, historyDeletedById } = userSlice.actions;
 
 export default userSlice.reducer;

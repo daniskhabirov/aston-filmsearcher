@@ -7,14 +7,19 @@ import {
   Text,
   Button,
 } from "@mantine/core";
-
 import { useNavigate } from "react-router";
 
-import { Card } from "../../interfaces";
+export interface Card {
+  poster: string;
+  title: string;
+  type: string;
+  year: string;
+  imdbID: string;
+}
 
-type Props = {
+interface Props {
   card: Card;
-};
+}
 
 const CardItem = ({ card }: Props) => {
   const navigate = useNavigate();

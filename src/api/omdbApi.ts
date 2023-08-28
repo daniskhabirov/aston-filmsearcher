@@ -4,13 +4,13 @@ import transformData from "../utils/transformData";
 
 const API_KEY = process.env.REACT_APP_API_KEY;
 
-interface SearchResult {
+export interface Entity {
   [key: string]: string;
 }
 
 export interface SearchResponse {
   Response: string;
-  Search: SearchResult[];
+  Search: Entity[];
   totalResults: number;
 }
 
@@ -34,7 +34,7 @@ export const omdbApi = createApi({
         url: "/",
         params: { apikey: API_KEY, i: id },
       }),
-      transformResponse: (data: SearchResult) => {
+      transformResponse: (data: Entity) => {
         if (data.Response === "False") return null;
         return transformData(data);
       },

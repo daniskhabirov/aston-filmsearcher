@@ -3,12 +3,12 @@ import { Box, Flex, Text } from "@mantine/core";
 
 import { useSearchParams } from "react-router-dom";
 
-import { Card } from "../../interfaces";
+import { Card } from "../CardItem/CardItem";
 import CardItem from "../CardItem/CardItem";
 
-type Props = {
+interface Props {
   cards?: Card[];
-};
+}
 
 const CardList = ({ cards }: Props) => {
   const [searchParams] = useSearchParams();
