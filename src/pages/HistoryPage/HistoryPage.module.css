@@ -1,0 +1,8 @@
+.table tbody tr:hover {
+  background-color: #228be624;
+  cursor: pointer;
+}
+
+.icon {
+  color: pink
+}

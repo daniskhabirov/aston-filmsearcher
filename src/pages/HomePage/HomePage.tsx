@@ -5,9 +5,11 @@ import { useForm } from "@mantine/form";
 
 import SearchForm from "../../components/SearchForm/SearchForm";
 import { SearchFormValues } from "../../components/SearchForm/SearchForm";
+import useHistory from "../../hooks/useHistory";
 
 const HomePage = () => {
   const navigate = useNavigate();
+  const { addHistoryItem } = useHistory();
 
   const initialValues = {
     search: "",
@@ -20,6 +22,7 @@ const HomePage = () => {
   });
 
   const handleSubmit = () => {
+    addHistoryItem({ searchValues: form.values });
     navigate(
       `/search?search=${form.values.search}&year=${form.values.year}&type=${form.values.type}`,
     );

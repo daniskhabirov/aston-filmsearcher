@@ -14,8 +14,8 @@ export interface SearchResponse {
   totalResults: number;
 }
 
-export const apiSlice = createApi({
-  reducerPath: "cardsApi",
+export const omdbApi = createApi({
+  reducerPath: "omdbApi",
   baseQuery: fetchBaseQuery({ baseUrl: "https://www.omdbapi.com" }),
   endpoints: (builder) => ({
     fetchCards: builder.query({
