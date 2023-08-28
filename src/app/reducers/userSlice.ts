@@ -1,6 +1,12 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-import { HistoryItem } from "../../types";
+export type HistoryItem = {
+  id: string;
+  search: string;
+  year: string;
+  type: string;
+  date: string;
+};
 
 interface UserState {
   historyItems: HistoryItem[];

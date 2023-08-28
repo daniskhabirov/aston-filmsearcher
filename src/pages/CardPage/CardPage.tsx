@@ -41,23 +41,23 @@ const CardPage = () => {
       <Grid.Col span="content">
         <Stack>
           <Title order={1}>{card.title}</Title>
-          <MovieProp propName="Actors:" propValue={card.actors} />
-          <MovieProp propName="Genre:" propValue={card.genre} />
-          <MovieProp propName="Year:" propValue={card.year} />
-          <MovieProp propName="Counry:" propValue={card.country} />
-          <MovieProp propName="Runtime:" propValue={card.runtime} />
-          <MovieProp propName="Director:" propValue={card.director} />
-          <MovieProp propName="Writer:" propValue={card.writer} />
-          <MovieProp propName="Released:" propValue={card.released} />
+          <MovieProp propName="Actors:" propValue={card.actors || ""} />
+          <MovieProp propName="Genre:" propValue={card.genre || ""} />
+          <MovieProp propName="Year:" propValue={card.year || ""} />
+          <MovieProp propName="Counry:" propValue={card.country || ""} />
+          <MovieProp propName="Runtime:" propValue={card.runtime || ""} />
+          <MovieProp propName="Director:" propValue={card.director || ""} />
+          <MovieProp propName="Writer:" propValue={card.writer || ""} />
+          <MovieProp propName="Released:" propValue={card.released || ""} />
           <Group>
-            <MovieProp propName="Rating:" propValue={card.imdbRating} />
-            <MovieProp propName="Votes:" propValue={card.imdbVotes} />
+            <MovieProp propName="Rating:" propValue={card.imdbRating || ""} />
+            <MovieProp propName="Votes:" propValue={card.imdbVotes || ""} />
           </Group>
-          <MovieProp propName="Type:" propValue={card.type} />
+          <MovieProp propName="Type:" propValue={card.type || ""} />
         </Stack>
       </Grid.Col>
       <Grid.Col>
-        <Text color="dimmed">{card.plot}</Text>
+        <Text color="dimmed">{card.plot || ""}</Text>
       </Grid.Col>
     </Grid>
   ) : (

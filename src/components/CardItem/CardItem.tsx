@@ -15,6 +15,16 @@ export interface Card {
   type: string;
   year: string;
   imdbID: string;
+  actors?: string;
+  genre?: string;
+  country?: string;
+  runtime?: string;
+  director?: string;
+  writer?: string;
+  released?: string;
+  imdbRating?: string;
+  imdbVotes?: string;
+  plot?: string;
 }
 
 interface Props {
