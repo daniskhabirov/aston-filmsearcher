@@ -9,6 +9,11 @@ import { Link, NavLink } from "react-router-dom";
 
 import { IconGhost2 } from "@tabler/icons-react";
 
+import AuthButton from "../AuthButton/AuthButton";
+
+import IfAuth from "../IfAuth/IfAuth";
+import UserAvatar from "../UserAvatar/UserAvatar";
+
 import styles from "./Header.module.css";
 
 const LINKS = [
@@ -37,6 +42,12 @@ const Header = () => {
           <IconGhost2 />
         </ActionIcon>
         <Group>{navLinks}</Group>
+        <Group>
+          <IfAuth>
+            <UserAvatar />
+          </IfAuth>
+          <AuthButton />
+        </Group>
       </Container>
     </HeaderContainer>
   );

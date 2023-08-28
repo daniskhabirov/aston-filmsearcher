@@ -1,28 +1,42 @@
 import { useCallback } from "react";
 import { useDispatch } from "react-redux";
 
-import { collection, deleteDoc, doc, setDoc } from "firebase/firestore";
+import { doc, updateDoc } from "firebase/firestore";
 
-import { db } from "../utils/firebase";
-import { historyAdded, historyDeletedById } from "../app/reducers/userSlice";
+import { firestore } from "../utils/firebase";
+import { historyAdded, historyDeletedByDate } from "../app/reducers/userSlice";
 import { SearchFormValues } from "../components/SearchForm/SearchForm";
+import { HistoryItem } from "../types";
 
-interface HistoryItemProps {
+interface AddItemProps {
+  historyItems: HistoryItem[];
+  userId: string;
   searchValues: SearchFormValues;
+}
+
+interface DeleteItemProps {
+  historyItems: HistoryItem[];
+  userId: string;
+  historyDate: string;
 }
 
 const useHistory = () => {
   const dispatch = useDispatch();
 
   const addHistoryItem = useCallback(
-    ({ searchValues }: HistoryItemProps) => {
+    ({ historyItems, userId, searchValues }: AddItemProps) => {
       const date = new Date().toLocaleString();
-      const newHistoryRef = doc(collection(db, "history"));
-      setDoc(newHistoryRef, searchValues);
-      const { id } = newHistoryRef;
+      updateDoc(doc(firestore, "users", userId), {
+        searchHistory: [
+          ...historyItems,
+          {
+            ...searchValues,
+            date,
+          },
+        ],
+      });
       dispatch(
         historyAdded({
-          id,
           ...searchValues,
           date,
         }),
@@ -31,15 +45,17 @@ const useHistory = () => {
     [dispatch],
   );
 
-  const deleteHistoryById = useCallback(
-    (historyId: string) => {
-      deleteDoc(doc(db, "history", historyId));
-      dispatch(historyDeletedById(historyId));
+  const deleteHistoryItemByDate = useCallback(
+    ({ historyItems, userId, historyDate }: DeleteItemProps) => {
+      updateDoc(doc(firestore, "users", userId), {
+        searchHistory: historyItems.filter((item) => item.date !== historyDate),
+      });
+      dispatch(historyDeletedByDate(historyDate));
     },
     [dispatch],
   );
 
-  return { addHistoryItem, deleteHistoryById };
+  return { addHistoryItem, deleteHistoryItemByDate };
 };
 
 export default useHistory;

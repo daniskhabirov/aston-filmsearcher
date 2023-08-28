@@ -16,11 +16,16 @@ interface SearchQueryParams {
 }
 
 import useHistory from "../../hooks/useHistory";
+import { searchValueValidator } from "../../utils/validate";
+import { useAppSelector } from "../../hooks/reduxHooks";
+import { getHistoryItems, getUserId } from "../../app/reducers/selectors";
 
 const SearchPage = () => {
   const [searchParams] = useSearchParams();
   const navigate = useNavigate();
   const { addHistoryItem } = useHistory();
+  const userId = useAppSelector(getUserId);
+  const historyItems = useAppSelector(getHistoryItems);
 
   const queryParams: SearchQueryParams = {
     search: searchParams.get("search") || "",
@@ -30,10 +35,17 @@ const SearchPage = () => {
 
   const { data: cards, isFetching } = omdbApi.useFetchCardsQuery(queryParams);
 
-  const form = useForm<SearchFormValues>({ initialValues: { ...queryParams } });
+  const form = useForm<SearchFormValues>({
+    initialValues: { ...queryParams },
+    validate: { search: searchValueValidator },
+  });
 
   const handleSubmit = () => {
-    addHistoryItem({ searchValues: form.values });
+    addHistoryItem({
+      historyItems: historyItems,
+      userId: userId,
+      searchValues: form.values,
+    });
     navigate(
       `/search?search=${form.values.search}&year=${form.values.year}&type=${form.values.type}`,
     );
