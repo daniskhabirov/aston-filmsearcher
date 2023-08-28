@@ -17,11 +17,11 @@ import { doc, setDoc } from "@firebase/firestore";
 import { userLoggedIn, userLoggedOut } from "../app/reducers/userSlice";
 import { firestore } from "../utils/firebase";
 
-type Props = {
+interface Props {
   email: string;
   password: string;
   type: string;
-};
+}
 
 const useAuth = () => {
   const auth = getAuth();
