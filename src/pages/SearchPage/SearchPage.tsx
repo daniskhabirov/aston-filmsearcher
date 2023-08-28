@@ -41,11 +41,13 @@ const SearchPage = () => {
   });
 
   const handleSubmit = () => {
-    addHistoryItem({
-      historyItems: historyItems,
-      userId: userId,
-      searchValues: form.values,
-    });
+    if (userId) {
+      addHistoryItem({
+        historyItems: historyItems,
+        userId: userId,
+        searchValues: form.values,
+      });
+    }
     navigate(
       `/search?search=${form.values.search}&year=${form.values.year}&type=${form.values.type}`,
     );
