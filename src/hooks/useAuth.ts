@@ -3,7 +3,6 @@ import {
   getAuth,
   signInWithEmailAndPassword,
   createUserWithEmailAndPassword,
-  getAdditionalUserInfo,
   signOut,
 } from "firebase/auth";
 import { useDispatch } from "react-redux";
