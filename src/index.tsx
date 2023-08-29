@@ -1,4 +1,4 @@
-import React from "react";
+import React, { StrictMode } from "react";
 import ReactDOM from "react-dom/client";
 
 import "./index.css";
@@ -16,12 +16,12 @@ const root = ReactDOM.createRoot(
 );
 
 root.render(
-  <React.StrictMode>
+  <StrictMode>
     <MantineProvider withGlobalStyles withNormalizeCSS>
       <ReduxProvider store={store}>
         <Notifications />
         <App />
       </ReduxProvider>
     </MantineProvider>
-  </React.StrictMode>,
+  </StrictMode>,
 );

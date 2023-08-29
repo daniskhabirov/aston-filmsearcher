@@ -14,7 +14,7 @@ import AuthButton from "../AuthButton/AuthButton";
 import IfAuth from "../IfAuth/IfAuth";
 import UserAvatar from "../UserAvatar/UserAvatar";
 
-import styles from "./Header.module.css";
+import s from "./Header.module.css";
 
 const LINKS = [
   { link: "/", label: "Home" },
@@ -23,21 +23,21 @@ const LINKS = [
 ];
 
 const Header = () => {
-  const navLinks = LINKS.map((link) => (
+  const navLinks = LINKS.map((item) => (
     <NavLink
-      key={link.label}
-      to={link.link}
+      key={item.label}
+      to={item.link}
       className={({ isActive }) =>
-        `${styles.link} ${isActive ? styles.linkActive : null}`
+        `${s.link} ${isActive ? s.linkActive : undefined}`
       }
     >
-      {link.label}
+      {item.label}
     </NavLink>
   ));
 
   return (
-    <HeaderContainer height={60} className={styles.root}>
-      <Container className={styles.header}>
+    <HeaderContainer height={60} className={s.root}>
+      <Container className={s.header}>
         <ActionIcon component={Link} to="/">
           <IconGhost2 />
         </ActionIcon>
