@@ -20,7 +20,6 @@ import { firestore } from "../utils/firebase";
 interface Props {
   email: string;
   password: string;
-  type: string;
 }
 
 const useAuth = () => {
@@ -28,25 +27,34 @@ const useAuth = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const login = useCallback(
-    ({ email, password, type }: Props) => {
-      let userPromise;
-      if (type === "login") {
-        userPromise = signInWithEmailAndPassword(auth, email, password);
-      } else {
-        userPromise = createUserWithEmailAndPassword(auth, email, password);
-      }
-      userPromise
+  const signUp = useCallback(
+    ({ email, password }: Props) => {
+      createUserWithEmailAndPassword(auth, email, password)
         .then((userCredential) => {
-          const details = getAdditionalUserInfo(userCredential);
-          const isNewUser = details?.isNewUser;
           const { uid, email } = userCredential.user;
           dispatch(userLoggedIn({ uid, email }));
-          if (isNewUser) {
-            setDoc(doc(firestore, "users", uid), {
-              searchHistory: [],
-            });
-          }
+          setDoc(doc(firestore, "users", uid), {
+            searchHistory: [],
+          });
+          navigate("/");
+        })
+        .catch((error) => {
+          notifications.show({
+            title: "Error",
+            color: "pink",
+            message: error.message + " 🤥",
+          });
+        });
+    },
+    [auth, dispatch, navigate],
+  );
+
+  const login = useCallback(
+    ({ email, password }: Props) => {
+      signInWithEmailAndPassword(auth, email, password)
+        .then((userCredential) => {
+          const { uid, email } = userCredential.user;
+          dispatch(userLoggedIn({ uid, email }));
           navigate("/");
         })
         .catch((error) => {
@@ -65,7 +73,7 @@ const useAuth = () => {
     dispatch(userLoggedOut());
   }, [auth, dispatch]);
 
-  return { login, logout };
+  return { signUp, login, logout };
 };
 
 export default useAuth;

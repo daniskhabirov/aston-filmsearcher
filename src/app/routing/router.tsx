@@ -8,6 +8,8 @@ import SearchPage from "../../pages/SearchPage/SearchPage";
 import HistoryPage from "../../pages/HistoryPage/HistoryPage";
 import LoginPage from "../../pages/LoginPage/LoginPage";
 
+import SignUpPage from "../../pages/SignUpPage/SignUpPage";
+
 import PrivateRoute from "./PrivateRoute";
 
 const Router = () => {
@@ -20,6 +22,7 @@ const Router = () => {
           <Route index element={<HistoryPage />} />
         </Route>
         <Route path="/login" element={<LoginPage />} />
+        <Route path="/signup" element={<SignUpPage />} />
       </Routes>
     </Suspense>
   );

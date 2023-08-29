@@ -16,7 +16,7 @@ import useAuth from "../../hooks/useAuth";
 import { emailValidator, passwordValidator } from "../../utils/validate";
 
 const LoginPage = () => {
-  const { login } = useAuth();
+  const { signUp } = useAuth();
   const navigate = useNavigate();
 
   const form = useForm({
@@ -32,7 +32,7 @@ const LoginPage = () => {
 
   const handleSubmit = () => {
     const { email, password } = form.values;
-    login({ email, password });
+    signUp({ email, password });
   };
 
   return (
@@ -69,12 +69,12 @@ const LoginPage = () => {
             component="button"
             type="button"
             color="dimmed"
-            onClick={() => navigate("/signup")}
+            onClick={() => navigate("/login")}
             size="xs"
           >
-            {"Don't have an account? Register"}
+            {"Already have an account? Login"}
           </Anchor>
-          <Button type="submit">Login</Button>
+          <Button type="submit">SignUp</Button>
         </Group>
       </form>
     </Paper>
