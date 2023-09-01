@@ -1,14 +1,17 @@
 import React from "react";
 import { Avatar } from "@mantine/core";
 
-import { getFirstLetterEmail } from "../../app/reducers/selectors";
+import { getUserEmail } from "../../app/reducers/selectors";
 import { useAppSelector } from "../../hooks/reduxHooks";
+import { getFirstLetter } from "../../utils/getFirstLetter";
 
 const UserAvatar = () => {
-  const emailFirstLetter = useAppSelector(getFirstLetterEmail);
+  const userEmail = useAppSelector(getUserEmail);
+  const userEmailFirstLetter = getFirstLetter(userEmail);
+
   return (
     <Avatar color="cyan" radius="xl" size="sm">
-      {emailFirstLetter}
+      {userEmailFirstLetter}
     </Avatar>
   );
 };
