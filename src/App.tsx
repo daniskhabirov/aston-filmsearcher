@@ -1,36 +1,17 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 
 import { BrowserRouter } from "react-router-dom";
-
-import { getAuth, onAuthStateChanged } from "@firebase/auth";
-
-import { useDispatch } from "react-redux";
 
 import { LoadingOverlay } from "@mantine/core";
 
 import Header from "./components/Header/Header";
 import Router from "./app/routing/router";
-
-import { userLoggedIn } from "./app/reducers/userSlice";
+import useAuthLoadingState from "./hooks/useAuthLoadingState";
 
 const App = () => {
-  const dispatch = useDispatch();
-  const [isLoading, setIsLoading] = useState(true);
+  const authStateIsLoading = useAuthLoadingState();
 
-  useEffect(() => {
-    const auth = getAuth();
-    const unsubscribe = onAuthStateChanged(auth, (user) => {
-      if (user) {
-        const { uid, email } = user;
-        dispatch(userLoggedIn({ uid, email }));
-      }
-      setIsLoading(false);
-    });
-
-    return unsubscribe;
-  }, [dispatch]);
-
-  if (isLoading) {
+  if (authStateIsLoading) {
     return <LoadingOverlay visible={true} overlayBlur={2} />;
   }
 
