@@ -14,9 +14,9 @@ const SearchPage = () => {
 
   return (
     <Stack>
-      <SearchForm />
+      <SearchForm isFetching={isFetching} />
       {isFetching ? (
-        <LoadingOverlay visible={true} />
+        <LoadingOverlay visible={true} overlayOpacity={0} />
       ) : (
         <CardList cards={cards} />
       )}
