@@ -1,10 +1,17 @@
 import React from "react";
 import { Button, Flex } from "@mantine/core";
-import { UseFormReturnType } from "@mantine/form";
+import { useForm } from "@mantine/form";
+
+import { useNavigate } from "react-router";
 
 import SearchInput from "../SearchInput/SearchInput";
 import YearInput from "../YearInput/YearInput";
 import TypeInput from "../TypeInput/TypeInput";
+import { searchValueValidator } from "../../utils/validate";
+import { useAppSelector } from "../../hooks/reduxHooks";
+import useHistory from "../../hooks/useHistory";
+import { getHistoryItems, getUserId } from "../../app/reducers/selectors";
+import useSearch from "../../hooks/useSearch";
 
 export interface SearchFormValues {
   search: string;
@@ -12,12 +19,33 @@ export interface SearchFormValues {
   type: string;
 }
 
-interface Props {
-  form: UseFormReturnType<SearchFormValues>;
-  handleSubmit: () => void;
-}
+const SearchForm = () => {
+  const { getInitialValues } = useSearch();
+  const userId = useAppSelector(getUserId);
+  const historyItems = useAppSelector(getHistoryItems);
+  const { addHistoryItem } = useHistory();
+  const navigate = useNavigate();
 
-const SearchForm = ({ form, handleSubmit }: Props) => {
+  const initialValues = getInitialValues();
+
+  const form = useForm<SearchFormValues>({
+    initialValues: { ...initialValues },
+    validate: { search: searchValueValidator },
+  });
+
+  const handleSubmit = () => {
+    if (userId) {
+      addHistoryItem({
+        historyItems: historyItems,
+        userId: userId,
+        searchValues: form.values,
+      });
+    }
+    navigate(
+      `/search?search=${form.values.search}&year=${form.values.year}&type=${form.values.type}`,
+    );
+  };
+
   return (
     <form onSubmit={form.onSubmit(handleSubmit)}>
       <Flex justify="center" gap={5} sx={{ marginTop: "15px" }}>

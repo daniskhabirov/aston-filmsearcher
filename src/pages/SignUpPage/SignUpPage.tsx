@@ -15,7 +15,7 @@ import { useNavigate } from "react-router";
 import useAuth from "../../hooks/useAuth";
 import { emailValidator, passwordValidator } from "../../utils/validate";
 
-const LoginPage = () => {
+const SignUpPage = () => {
   const { signUp } = useAuth();
   const navigate = useNavigate();
 
@@ -81,4 +81,4 @@ const LoginPage = () => {
   );
 };
 
-export default LoginPage;
+export default SignUpPage;
