@@ -5,7 +5,7 @@ import { Navigate, Outlet } from "react-router";
 import { useAppSelector } from "../../hooks/reduxHooks";
 import { getUserId } from "../reducers/selectors";
 
-const PrivateRoute = () => {
+const ProtectedRoute = () => {
   const userId = useAppSelector(getUserId);
   if (userId) {
     return <Outlet />;
@@ -14,4 +14,4 @@ const PrivateRoute = () => {
   }
 };
 
-export default PrivateRoute;
+export default ProtectedRoute;

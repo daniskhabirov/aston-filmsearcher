@@ -10,7 +10,7 @@ import LoginPage from "../../pages/LoginPage/LoginPage";
 
 import SignUpPage from "../../pages/SignUpPage/SignUpPage";
 
-import PrivateRoute from "./PrivateRoute";
+import ProtectedRoute from "./ProtectedRoute";
 
 const Router = () => {
   return (
@@ -18,7 +18,7 @@ const Router = () => {
       <Routes>
         <Route path="/" element={<HomePage />} />
         <Route path="/search" element={<SearchPage />} />
-        <Route path="/history" element={<PrivateRoute />}>
+        <Route path="/history" element={<ProtectedRoute />}>
           <Route index element={<HistoryPage />} />
         </Route>
         <Route path="/login" element={<LoginPage />} />
