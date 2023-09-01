@@ -13,6 +13,8 @@ import { notifications } from "@mantine/notifications";
 
 import { doc, setDoc } from "@firebase/firestore";
 
+import { async } from "q";
+
 import { userLoggedIn, userLoggedOut } from "../app/reducers/userSlice";
 import { firestore } from "../utils/firebase";
 
@@ -27,8 +29,8 @@ const useAuth = () => {
   const navigate = useNavigate();
 
   const signUp = useCallback(
-    ({ email, password }: Props) => {
-      createUserWithEmailAndPassword(auth, email, password)
+    async ({ email, password }: Props) => {
+      await createUserWithEmailAndPassword(auth, email, password)
         .then((userCredential) => {
           const { uid, email } = userCredential.user;
           dispatch(userLoggedIn({ uid, email }));
@@ -49,8 +51,8 @@ const useAuth = () => {
   );
 
   const login = useCallback(
-    ({ email, password }: Props) => {
-      signInWithEmailAndPassword(auth, email, password)
+    async ({ email, password }: Props) => {
+      await signInWithEmailAndPassword(auth, email, password)
         .then((userCredential) => {
           const { uid, email } = userCredential.user;
           dispatch(userLoggedIn({ uid, email }));

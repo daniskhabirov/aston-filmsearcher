@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   Group,
   Paper,
@@ -17,6 +17,7 @@ import { emailValidator, passwordValidator } from "../../utils/validate";
 
 const LoginPage = () => {
   const { login } = useAuth();
+  const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
 
   const form = useForm({
@@ -32,7 +33,8 @@ const LoginPage = () => {
 
   const handleSubmit = () => {
     const { email, password } = form.values;
-    login({ email, password });
+    setIsLoading(true);
+    login({ email, password }).then(() => setIsLoading(false));
   };
 
   return (
@@ -71,10 +73,13 @@ const LoginPage = () => {
             color="dimmed"
             onClick={() => navigate("/signup")}
             size="xs"
+            disabled={isLoading}
           >
-            {"Don't have an account? Register"}
+            {"Don't have an account? SignUp"}
           </Anchor>
-          <Button type="submit">Login</Button>
+          <Button type="submit" loading={isLoading}>
+            Login
+          </Button>
         </Group>
       </form>
     </Paper>
