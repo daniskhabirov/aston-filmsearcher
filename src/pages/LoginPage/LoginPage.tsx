@@ -7,6 +7,8 @@ import {
   TextInput,
   Button,
   Anchor,
+  Text,
+  Divider,
 } from "@mantine/core";
 import { useForm } from "@mantine/form";
 
@@ -14,6 +16,7 @@ import { useNavigate } from "react-router";
 
 import useAuth from "../../hooks/useAuth";
 import { emailValidator, passwordValidator } from "../../utils/validate";
+import LoginWithGoogleButton from "../../components/auth/LoginWithGoogleButton/LoginWithGoogleButton";
 
 const LoginPage = () => {
   const { login } = useAuth();
@@ -43,6 +46,14 @@ const LoginPage = () => {
       p="xl"
       sx={{ maxWidth: "500px", margin: "50px auto 0 auto" }}
     >
+      <Text size="lg" weight={500}>
+        Welcome, login with
+      </Text>
+
+      <LoginWithGoogleButton />
+
+      <Divider label="Or continue with email" labelPosition="center" my="lg" />
+
       <form onSubmit={form.onSubmit(handleSubmit)}>
         <Stack>
           <TextInput
@@ -54,6 +65,7 @@ const LoginPage = () => {
               form.setFieldValue("email", event.currentTarget.value)
             }
             error={form.errors.email}
+            radius="md"
           />
           <PasswordInput
             required
@@ -64,6 +76,7 @@ const LoginPage = () => {
               form.setFieldValue("password", event.currentTarget.value)
             }
             error={form.errors.password}
+            radius="md"
           />
         </Stack>
         <Group position="apart" mt="xl">
@@ -77,7 +90,7 @@ const LoginPage = () => {
           >
             {"Don't have an account? SignUp"}
           </Anchor>
-          <Button type="submit" loading={isLoading}>
+          <Button type="submit" loading={isLoading} radius="md">
             Login
           </Button>
         </Group>

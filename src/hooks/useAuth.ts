@@ -4,6 +4,9 @@ import {
   signInWithEmailAndPassword,
   createUserWithEmailAndPassword,
   signOut,
+  GoogleAuthProvider,
+  signInWithPopup,
+  getAdditionalUserInfo,
 } from "firebase/auth";
 import { useDispatch } from "react-redux";
 
@@ -12,8 +15,6 @@ import { useNavigate } from "react-router";
 import { notifications } from "@mantine/notifications";
 
 import { doc, setDoc } from "@firebase/firestore";
-
-import { async } from "q";
 
 import { userLoggedIn, userLoggedOut } from "../app/reducers/userSlice";
 import { firestore } from "../utils/firebase";
@@ -69,12 +70,28 @@ const useAuth = () => {
     [auth, dispatch, navigate],
   );
 
+  const loginWithGoogle = useCallback(() => {
+    const provider = new GoogleAuthProvider();
+    signInWithPopup(auth, provider).then((result) => {
+      const details = getAdditionalUserInfo(result);
+      const isNewUser = details?.isNewUser;
+      const { uid, email } = result.user;
+      dispatch(userLoggedIn({ uid, email }));
+      if (isNewUser) {
+        setDoc(doc(firestore, "users", uid), {
+          searchHistory: [],
+        });
+      }
+      navigate("/");
+    });
+  }, [auth, dispatch, navigate]);
+
   const logout = useCallback(() => {
     signOut(auth);
     dispatch(userLoggedOut());
   }, [auth, dispatch]);
 
-  return { signUp, login, logout };
+  return { signUp, login, loginWithGoogle, logout };
 };
 
 export default useAuth;
