@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import {
   Group,
   Paper,
@@ -7,8 +7,6 @@ import {
   TextInput,
   Button,
   Anchor,
-  Text,
-  Divider,
 } from "@mantine/core";
 import { useForm } from "@mantine/form";
 
@@ -16,11 +14,9 @@ import { useNavigate } from "react-router";
 
 import useAuth from "../../hooks/useAuth";
 import { emailValidator, passwordValidator } from "../../utils/validate";
-import LoginWithGoogleButton from "../../components/auth/LoginWithGoogleButton/LoginWithGoogleButton";
 
 const SignUpPage = () => {
   const { signUp } = useAuth();
-  const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
 
   const form = useForm({
@@ -36,8 +32,7 @@ const SignUpPage = () => {
 
   const handleSubmit = () => {
     const { email, password } = form.values;
-    setIsLoading(true);
-    signUp({ email, password }).then(() => setIsLoading(false));
+    signUp({ email, password });
   };
 
   return (
@@ -46,14 +41,6 @@ const SignUpPage = () => {
       p="xl"
       sx={{ maxWidth: "500px", margin: "50px auto 0 auto" }}
     >
-      <Text size="lg" weight={500}>
-        Welcome, signUp with
-      </Text>
-
-      <LoginWithGoogleButton />
-
-      <Divider label="Or continue with email" labelPosition="center" my="lg" />
-
       <form onSubmit={form.onSubmit(handleSubmit)}>
         <Stack>
           <TextInput
@@ -84,13 +71,10 @@ const SignUpPage = () => {
             color="dimmed"
             onClick={() => navigate("/login")}
             size="xs"
-            disabled={isLoading}
           >
             {"Already have an account? Login"}
           </Anchor>
-          <Button type="submit" loading={isLoading}>
-            SignUp
-          </Button>
+          <Button type="submit">SignUp</Button>
         </Group>
       </form>
     </Paper>

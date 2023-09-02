@@ -1,5 +1,5 @@
-import { getUserId } from "../../../app/reducers/selectors";
-import { useAppSelector } from "../../../hooks/reduxHooks";
+import { getUserId } from "../../app/reducers/selectors";
+import { useAppSelector } from "../../hooks/reduxHooks";
 
 type Children = {
   children: JSX.Element;
