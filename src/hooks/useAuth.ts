@@ -4,6 +4,9 @@ import {
   signInWithEmailAndPassword,
   createUserWithEmailAndPassword,
   signOut,
+  GoogleAuthProvider,
+  signInWithPopup,
+  getAdditionalUserInfo,
 } from "firebase/auth";
 import { useDispatch } from "react-redux";
 
@@ -27,8 +30,8 @@ const useAuth = () => {
   const navigate = useNavigate();
 
   const signUp = useCallback(
-    ({ email, password }: Props) => {
-      createUserWithEmailAndPassword(auth, email, password)
+    async ({ email, password }: Props) => {
+      await createUserWithEmailAndPassword(auth, email, password)
         .then((userCredential) => {
           const { uid, email } = userCredential.user;
           dispatch(userLoggedIn({ uid, email }));
@@ -49,8 +52,8 @@ const useAuth = () => {
   );
 
   const login = useCallback(
-    ({ email, password }: Props) => {
-      signInWithEmailAndPassword(auth, email, password)
+    async ({ email, password }: Props) => {
+      await signInWithEmailAndPassword(auth, email, password)
         .then((userCredential) => {
           const { uid, email } = userCredential.user;
           dispatch(userLoggedIn({ uid, email }));
@@ -67,12 +70,28 @@ const useAuth = () => {
     [auth, dispatch, navigate],
   );
 
+  const loginWithGoogle = useCallback(() => {
+    const provider = new GoogleAuthProvider();
+    signInWithPopup(auth, provider).then((result) => {
+      const details = getAdditionalUserInfo(result);
+      const isNewUser = details?.isNewUser;
+      const { uid, email } = result.user;
+      dispatch(userLoggedIn({ uid, email }));
+      if (isNewUser) {
+        setDoc(doc(firestore, "users", uid), {
+          searchHistory: [],
+        });
+      }
+      navigate("/");
+    });
+  }, [auth, dispatch, navigate]);
+
   const logout = useCallback(() => {
     signOut(auth);
     dispatch(userLoggedOut());
   }, [auth, dispatch]);
 
-  return { signUp, login, logout };
+  return { signUp, login, loginWithGoogle, logout };
 };
 
 export default useAuth;
