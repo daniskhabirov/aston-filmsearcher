@@ -1,47 +1,20 @@
 import React from "react";
 import { LoadingOverlay, Stack } from "@mantine/core";
-import { useNavigate, useSearchParams } from "react-router-dom";
-
-import { useForm } from "@mantine/form";
 
 import SearchForm from "../../components/SearchForm/SearchForm";
 import { omdbApi } from "../../api/omdbApi";
 import CardList from "../../components/CardList/CardList";
-import { SearchFormValues } from "../../components/SearchForm/SearchForm";
-
-interface SearchQueryParams {
-  search: string;
-  year: string;
-  type: string;
-}
-
-import useHistory from "../../hooks/useHistory";
+import useSearch from "../../hooks/useSearch";
 
 const SearchPage = () => {
-  const [searchParams] = useSearchParams();
-  const navigate = useNavigate();
-  const { addHistoryItem } = useHistory();
+  const { getInitialValues } = useSearch();
+  const initialValues = getInitialValues();
 
-  const queryParams: SearchQueryParams = {
-    search: searchParams.get("search") || "",
-    year: searchParams.get("year") || "",
-    type: searchParams.get("type") || "",
-  };
-
-  const { data: cards, isFetching } = omdbApi.useFetchCardsQuery(queryParams);
-
-  const form = useForm<SearchFormValues>({ initialValues: { ...queryParams } });
-
-  const handleSubmit = () => {
-    addHistoryItem({ searchValues: form.values });
-    navigate(
-      `/search?search=${form.values.search}&year=${form.values.year}&type=${form.values.type}`,
-    );
-  };
+  const { data: cards, isFetching } = omdbApi.useFetchCardsQuery(initialValues);
 
   return (
     <Stack>
-      <SearchForm form={form} handleSubmit={handleSubmit} />
+      <SearchForm />
       {isFetching ? (
         <LoadingOverlay visible={true} />
       ) : (

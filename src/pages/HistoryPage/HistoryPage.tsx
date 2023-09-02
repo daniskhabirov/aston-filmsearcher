@@ -6,7 +6,7 @@ import { IconTrash } from "@tabler/icons-react";
 
 import { useAppSelector } from "../../hooks/reduxHooks";
 
-import { getHistoryItems } from "../../app/reducers/selectors";
+import { getHistoryItems, getUserId } from "../../app/reducers/selectors";
 
 import useHistory from "../../hooks/useHistory";
 
@@ -15,10 +15,15 @@ import styles from "./HistoryPage.module.css";
 const HistoryPage = () => {
   const navigate = useNavigate();
   const historyItems = useAppSelector(getHistoryItems);
-  const { deleteHistoryById } = useHistory();
+  const userId = useAppSelector(getUserId);
+  const { deleteHistoryItemByDate } = useHistory();
 
-  const deleteHistoryClick = (historyId: string) => {
-    deleteHistoryById(historyId);
+  const deleteHistoryItemClick = (date: string) => {
+    deleteHistoryItemByDate({
+      historyItems: historyItems,
+      userId: userId,
+      historyDate: date,
+    });
   };
 
   return (
@@ -54,7 +59,7 @@ const HistoryPage = () => {
                 onClick={(e) => e.stopPropagation()}
               >
                 <ActionIcon
-                  onClick={() => deleteHistoryClick(element.id)}
+                  onClick={() => deleteHistoryItemClick(element.date)}
                   className={styles.icon}
                 >
                   <IconTrash />
