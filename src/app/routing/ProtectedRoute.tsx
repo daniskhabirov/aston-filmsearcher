@@ -10,7 +10,7 @@ const ProtectedRoute = () => {
   if (userId) {
     return <Outlet />;
   } else {
-    return <Navigate to="/signUp" />;
+    return <Navigate to="/signup" />;
   }
 };
 
