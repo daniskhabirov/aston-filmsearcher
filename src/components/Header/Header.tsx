@@ -4,10 +4,13 @@ import { Link, NavLink } from "react-router-dom";
 
 import { IconGhost2 } from "@tabler/icons-react";
 
-import AuthButton from "../AuthButton/AuthButton";
-
-import IfAuth from "../IfAuth/IfAuth";
 import UserAvatar from "../UserAvatar/UserAvatar";
+
+import IfAuth from "../auth/IfAuth/IfAuth";
+import IfNotAuth from "../auth/IfNotAuth/IfNotAuth";
+import LogoutButton from "../auth/LogoutButton/LogoutButton";
+import LoginButton from "../auth/LoginButton/LoginButton";
+import SignUpButton from "../auth/SignUpButton/SignUpButton";
 
 import s from "./Header.module.css";
 
@@ -39,9 +42,17 @@ const Header = () => {
         <Group>{navLinks}</Group>
         <Group>
           <IfAuth>
-            <UserAvatar />
+            <>
+              <UserAvatar />
+              <LogoutButton />
+            </>
           </IfAuth>
-          <AuthButton />
+          <IfNotAuth>
+            <>
+              <LoginButton />
+              <SignUpButton />
+            </>
+          </IfNotAuth>
         </Group>
       </div>
     </HeaderContainer>

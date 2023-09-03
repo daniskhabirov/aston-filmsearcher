@@ -55,7 +55,7 @@ const CardPage = () => {
   };
 
   return isFetching ? (
-    <LoadingOverlay visible={true} />
+    <LoadingOverlay visible={true} overlayOpacity={0} />
   ) : card ? (
     <Grid sx={{ display: "flex", margin: "auto" }}>
       <Grid.Col span="content">

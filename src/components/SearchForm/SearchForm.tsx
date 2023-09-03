@@ -19,7 +19,11 @@ export interface SearchFormValues {
   type: string;
 }
 
-const SearchForm = () => {
+interface Props {
+  isFetching?: boolean;
+}
+
+const SearchForm = ({ isFetching = false }: Props) => {
   const { getInitialValues } = useSearch();
   const userId = useAppSelector(getUserId);
   const historyItems = useAppSelector(getHistoryItems);
@@ -52,7 +56,7 @@ const SearchForm = () => {
         <SearchInput search={form.getInputProps("search")} />
         <YearInput year={form.getInputProps("year")} />
         <TypeInput type={form.getInputProps("type")} />
-        <Button type="submit" sx={{ width: "150px" }}>
+        <Button type="submit" loading={isFetching} sx={{ width: "150px" }}>
           Search
         </Button>
       </Flex>
