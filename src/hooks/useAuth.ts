@@ -13,8 +13,22 @@ import { notifications } from "@mantine/notifications";
 
 import { doc, setDoc } from "@firebase/firestore";
 
-import { userLoggedIn, userLoggedOut } from "../app/reducers/userSlice";
+import { Action, ThunkDispatch } from "@reduxjs/toolkit";
+
+import {
+  fetchFirestoreData,
+  userLoggedIn,
+  userLoggedOut,
+} from "../app/reducers/userSlice";
 import { firestore } from "../utils/firebase";
+import { RootState } from "../app/store";
+
+export const thunkFetchFirestoreData = (
+  dispatch: ThunkDispatch<RootState, string, Action>,
+  userId: string,
+) => {
+  dispatch(fetchFirestoreData(userId));
+};
 
 interface Props {
   email: string;
@@ -34,6 +48,7 @@ const useAuth = () => {
           dispatch(userLoggedIn({ uid, email }));
           setDoc(doc(firestore, "users", uid), {
             searchHistory: [],
+            favoriteCardIds: [],
           });
           navigate("/");
         })
@@ -54,6 +69,7 @@ const useAuth = () => {
         .then((userCredential) => {
           const { uid, email } = userCredential.user;
           dispatch(userLoggedIn({ uid, email }));
+          thunkFetchFirestoreData(dispatch, uid);
           navigate("/");
         })
         .catch((error) => {

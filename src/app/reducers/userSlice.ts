@@ -1,4 +1,7 @@
-import { PayloadAction, createSlice } from "@reduxjs/toolkit";
+import { PayloadAction, createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import { doc, getDoc } from "firebase/firestore";
+
+import { firestore } from "../../utils/firebase";
 
 export type HistoryItem = {
   id: string;
@@ -17,13 +20,23 @@ interface UserState {
   userId: string;
   email: string;
   historyItems: HistoryItem[];
+  favoriteCardIds: string[];
 }
 
 const initialState: UserState = {
   userId: "",
   email: "",
   historyItems: [],
+  favoriteCardIds: [],
 };
+
+export const fetchFirestoreData = createAsyncThunk(
+  "user/fetchFirestoreData",
+  async (userId: string) => {
+    const response = await getDoc(doc(firestore, "users", userId));
+    return response.data();
+  },
+);
 
 const userSlice = createSlice({
   name: "user",
@@ -45,6 +58,25 @@ const userSlice = createSlice({
         (item) => item.date !== action.payload,
       );
     },
+    favoriteCardIdAdded(state, { payload: id }: PayloadAction<string>) {
+      state.favoriteCardIds.push(id);
+    },
+    favoriteCardIdDeleted(state, { payload: id }: PayloadAction<string>) {
+      state.favoriteCardIds = state.favoriteCardIds.filter(
+        (cardId) => cardId !== id,
+      );
+    },
+  },
+  extraReducers: (builder) => {
+    builder.addCase(
+      fetchFirestoreData.fulfilled,
+      (state, { payload: firestoreData }) => {
+        if (firestoreData) {
+          state.favoriteCardIds = firestoreData.favoriteCardIds;
+          state.historyItems = firestoreData.searchHistory;
+        }
+      },
+    );
   },
 });
 
@@ -53,6 +85,8 @@ export const {
   userLoggedOut,
   historyAdded,
   historyDeletedByDate,
+  favoriteCardIdAdded,
+  favoriteCardIdDeleted,
 } = userSlice.actions;
 
 export default userSlice.reducer;

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useMemo } from "react";
 import {
   Grid,
   Group,
@@ -12,23 +12,46 @@ import {
 import { useParams } from "react-router-dom";
 
 import { omdbApi } from "../../api/omdbApi";
+import FavoriteButton from "../../components/FavoriteButton/FavoriteButton";
+import { useAppSelector } from "../../hooks/reduxHooks";
+import { checkIsFavoriteByCardId } from "../../utils/redux";
+import useFavoriteCard from "../../hooks/useFavoriteCards";
+import { getFavoriteCardIds, getUserId } from "../../app/reducers/selectors";
+
+interface MovieProps {
+  propName: string;
+  propValue: string;
+}
+
+const MovieProp = ({ propName, propValue }: MovieProps) => {
+  return (
+    <Group>
+      <Text color="dimmed">{propName}</Text>
+      <Text>{propValue}</Text>
+    </Group>
+  );
+};
 
 const CardPage = () => {
   const { id } = useParams();
   const { data: card, isFetching } = omdbApi.useFetchCardByIdQuery(id);
 
-  type MovieProps = {
-    propName: string;
-    propValue: string;
-  };
+  const userId = useAppSelector(getUserId);
+  const favoriteCardIds = useAppSelector(getFavoriteCardIds);
+  const checkIsFavorite = useMemo(checkIsFavoriteByCardId, []);
+  const { updateFavoriteList } = useFavoriteCard();
 
-  const MovieProp = ({ propName, propValue }: MovieProps) => {
-    return (
-      <Group>
-        <Text color="dimmed">{propName}</Text>
-        <Text>{propValue}</Text>
-      </Group>
-    );
+  const isFavorite = useAppSelector((state) => {
+    if (card) {
+      return checkIsFavorite(state, card.imdbID);
+    }
+    return false;
+  });
+
+  const checkboxHandler = () => {
+    if (card) {
+      updateFavoriteList({ userId, favoriteCardIds, cardId: card.imdbID });
+    }
   };
 
   return isFetching ? (
@@ -54,6 +77,10 @@ const CardPage = () => {
             <MovieProp propName="Votes:" propValue={card.imdbVotes || ""} />
           </Group>
           <MovieProp propName="Type:" propValue={card.type || ""} />
+          <FavoriteButton
+            checked={isFavorite}
+            checkboxHandler={checkboxHandler}
+          />
         </Stack>
       </Grid.Col>
       <Grid.Col>
