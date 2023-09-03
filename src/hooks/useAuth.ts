@@ -86,13 +86,14 @@ const useAuth = () => {
     [auth, dispatch, navigate],
   );
 
-  const loginWithGoogle = useCallback(() => {
+  const loginWithGoogle = useCallback(async () => {
     const provider = new GoogleAuthProvider();
-    signInWithPopup(auth, provider).then((result) => {
+    await signInWithPopup(auth, provider).then((result) => {
       const details = getAdditionalUserInfo(result);
       const isNewUser = details?.isNewUser;
       const { uid, email } = result.user;
       dispatch(userLoggedIn({ uid, email }));
+      thunkFetchFirestoreData(dispatch, uid);
       if (isNewUser) {
         setDoc(doc(firestore, "users", uid), {
           searchHistory: [],
