@@ -1,5 +1,5 @@
 import React from "react";
-import { Checkbox, CheckboxProps, InputProps } from "@mantine/core";
+import { Checkbox, CheckboxProps } from "@mantine/core";
 import { ChangeEventHandler } from "react";
 import { IconHeart, IconHeartFilled } from "@tabler/icons-react";
 
