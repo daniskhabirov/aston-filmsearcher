@@ -17,6 +17,7 @@ import { useAppSelector } from "../../hooks/reduxHooks";
 import { checkIsFavoriteByCardId } from "../../utils/redux";
 import useFavoriteCard from "../../hooks/useFavoriteCards";
 import { getFavoriteCardIds, getUserId } from "../../app/reducers/selectors";
+import IfAuth from "../../components/auth/IfAuth/IfAuth";
 
 interface MovieProps {
   propName: string;
@@ -77,10 +78,12 @@ const CardPage = () => {
             <MovieProp propName="Votes:" propValue={card.imdbVotes || ""} />
           </Group>
           <MovieProp propName="Type:" propValue={card.type || ""} />
-          <FavoriteButton
-            checked={isFavorite}
-            checkboxHandler={checkboxHandler}
-          />
+          <IfAuth>
+            <FavoriteButton
+              checked={isFavorite}
+              checkboxHandler={checkboxHandler}
+            />
+          </IfAuth>
         </Stack>
       </Grid.Col>
       <Grid.Col>
