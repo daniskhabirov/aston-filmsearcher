@@ -6,9 +6,9 @@ import { LoadingOverlay } from "@mantine/core";
 import HomePage from "../../pages/HomePage/HomePage";
 import SearchPage from "../../pages/SearchPage/SearchPage";
 import HistoryPage from "../../pages/HistoryPage/HistoryPage";
+import CardPage from "../../pages/CardPage/CardPage";
 import LoginPage from "../../pages/LoginPage/LoginPage";
 import SignUpPage from "../../pages/SignUpPage/SignUpPage";
-import CardPage from "../../pages/CardPage/CardPage";
 
 import ProtectedRoute from "./ProtectedRoute";
 
