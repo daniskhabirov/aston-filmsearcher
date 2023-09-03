@@ -6,8 +6,11 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
+  margin: auto;
+  padding: 0 15px;
   height: 100%;
   font-weight: 600;
+  max-width: 1000px;
 }
 
 .link {

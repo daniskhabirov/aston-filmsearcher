@@ -52,7 +52,9 @@ const SearchForm = () => {
         <SearchInput search={form.getInputProps("search")} />
         <YearInput year={form.getInputProps("year")} />
         <TypeInput type={form.getInputProps("type")} />
-        <Button type="submit">Search</Button>
+        <Button type="submit" sx={{ width: "150px" }}>
+          Search
+        </Button>
       </Flex>
     </form>
   );

@@ -47,9 +47,14 @@ const CardItem = ({ card }: Props) => {
         width: "300px",
         display: "flex",
         flexDirection: "column",
-        justifyContent: "space-between",
         backgroundColor: "inherit",
+        ":hover": {
+          cursor: "pointer",
+          transform: "translateY(-5px)",
+        },
+        margin: "2px",
       }}
+      onClick={handleClick}
     >
       <CardContainer.Section>
         <Image src={card.poster} height={400} alt="img" />
@@ -59,7 +64,7 @@ const CardItem = ({ card }: Props) => {
         <Text size="sm" color="dimmed">
           {card.year}, {card.type}
         </Text>
-        <Button variant="light" radius="md" onClick={handleClick}>
+        <Button variant="light" radius="md">
           More details
         </Button>
       </Stack>
