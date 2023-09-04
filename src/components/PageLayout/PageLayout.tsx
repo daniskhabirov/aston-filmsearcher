@@ -7,7 +7,7 @@ type Children = {
 };
 
 const PageLayout = ({ children }: Children) => {
-  return <div className={s.container}>{children}</div>;
+  return <div className={s.layout}>{children}</div>;
 };
 
 export default PageLayout;
