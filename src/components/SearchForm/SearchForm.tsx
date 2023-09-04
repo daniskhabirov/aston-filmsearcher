@@ -46,7 +46,9 @@ const SearchForm = ({ isFetching = false }: Props) => {
       });
     }
     navigate(
-      `/search?search=${form.values.search}&year=${form.values.year}&type=${form.values.type}`,
+      `/search?search=${form.values.search}` +
+        `${form.values.year ? `&year=${form.values.year}` : ``}` +
+        `${form.values.type ? `&type=${form.values.type}` : ``}`,
     );
   };
 
