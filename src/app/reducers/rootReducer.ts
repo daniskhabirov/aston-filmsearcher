@@ -1,12 +1,12 @@
 import { combineReducers } from "@reduxjs/toolkit";
 
-import { omdbApi } from "../../api/omdbApi";
+import { cardApi } from "../../api/cardApi";
 
 import user from "./userSlice";
 
 const rootReducer = combineReducers({
   user,
-  [omdbApi.reducerPath]: omdbApi.reducer,
+  [cardApi.reducerPath]: cardApi.reducer,
 });
 
 export default rootReducer;

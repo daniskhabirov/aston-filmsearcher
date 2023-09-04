@@ -1,13 +1,13 @@
 import { configureStore } from "@reduxjs/toolkit";
 
-import { omdbApi } from "../api/omdbApi";
+import { cardApi } from "../api/cardApi";
 
 import rootReducer from "./reducers/rootReducer";
 
 export const store = configureStore({
   reducer: rootReducer,
   middleware: (getDefaultMiddleware) =>
-    getDefaultMiddleware().concat(omdbApi.middleware),
+    getDefaultMiddleware().concat(cardApi.middleware),
 });
 
 export type RootState = ReturnType<typeof store.getState>;

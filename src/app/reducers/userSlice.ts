@@ -5,7 +5,7 @@ import { db } from "../../utils/firebase";
 import transformData from "../../utils/transformData";
 import { Card } from "../../components/CardItem/CardItem";
 import { RootState } from "../store";
-import { API_KEY } from "../../api/omdbApi";
+import { API_KEY } from "../../api/cardApi";
 
 export type HistoryItem = {
   id: string;

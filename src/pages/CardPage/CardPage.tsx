@@ -11,7 +11,7 @@ import {
 
 import { useParams } from "react-router-dom";
 
-import { omdbApi } from "../../api/omdbApi";
+import { cardApi } from "../../api/cardApi";
 import FavoriteButton from "../../components/FavoriteButton/FavoriteButton";
 import { useAppSelector } from "../../hooks/reduxHooks";
 import { checkIsFavoriteByCardId } from "../../utils/redux";
@@ -35,7 +35,7 @@ const MovieProp = ({ propName, propValue }: MovieProps) => {
 
 const CardPage = () => {
   const { id } = useParams();
-  const { data: card, isFetching } = omdbApi.useFetchCardByIdQuery(id);
+  const { data: card, isFetching } = cardApi.useFetchCardByIdQuery(id);
 
   const userId = useAppSelector(getUserId);
   const favoriteCardIds = useAppSelector(getFavoriteCardIds);
