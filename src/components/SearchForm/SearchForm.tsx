@@ -12,6 +12,8 @@ import { useAppSelector } from "../../hooks/reduxHooks";
 import useHistory from "../../hooks/useHistory";
 import { getHistoryItems, getUserId } from "../../app/reducers/selectors";
 import useSearch from "../../hooks/useSearch";
+import useDebounce from "../../hooks/useDebounce";
+import { omdbApi } from "../../api/omdbApi";
 
 export interface SearchFormValues {
   search: string;
@@ -37,6 +39,18 @@ const SearchForm = ({ isFetching = false }: Props) => {
     validate: { search: searchValueValidator },
   });
 
+  const debounceValue = useDebounce(form.values.search, 1000);
+  const { data: dropDownItems, isFetching: isFetchingDropDownItems } =
+    omdbApi.useFetchCardsQuery(
+      {
+        ...initialValues,
+        search: debounceValue,
+      },
+      {
+        skip: debounceValue.length < 3,
+      },
+    );
+
   const handleSubmit = () => {
     if (userId) {
       addHistoryItem({
@@ -53,7 +67,11 @@ const SearchForm = ({ isFetching = false }: Props) => {
   return (
     <form onSubmit={form.onSubmit(handleSubmit)}>
       <Flex justify="center" gap={5}>
-        <SearchInput search={form.getInputProps("search")} />
+        <SearchInput
+          search={form.getInputProps("search")}
+          dropDownItems={dropDownItems?.slice(0, 5)}
+          isFetchingDropDownItems={isFetchingDropDownItems}
+        />
         <YearInput year={form.getInputProps("year")} />
         <TypeInput type={form.getInputProps("type")} />
         <Button type="submit" loading={isFetching} sx={{ width: "150px" }}>
