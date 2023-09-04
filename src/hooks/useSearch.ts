@@ -10,6 +10,7 @@ const useSearch = () => {
       search: searchParams.get("search") || "",
       year: searchParams.get("year") || "",
       type: searchParams.get("type") || "",
+      page: searchParams.get("page") || "",
     };
 
     return initialValues;

@@ -8,13 +8,13 @@ import DropDownItem from "../DropDownCardItem/DropDownCardItem";
 interface Props {
   search: InputProps;
   dropDownItems?: Card[];
-  isFetchingDropDownItems?: boolean;
+  dropDownItemsIsFetching?: boolean;
 }
 
 const SearchInput = ({
   search,
   dropDownItems,
-  isFetchingDropDownItems,
+  dropDownItemsIsFetching,
 }: Props) => {
   return (
     <Popover width="target">
@@ -22,11 +22,11 @@ const SearchInput = ({
         <TextInput
           sx={{ width: "100%" }}
           icon={<IconSearch size="1.1rem" stroke={1.5} />}
-          placeholder="Search, at least 3 symbol..."
+          placeholder="Search, at least 3 letters..."
           {...search}
         />
       </Popover.Target>
-      {isFetchingDropDownItems ? (
+      {dropDownItemsIsFetching ? (
         <Popover.Dropdown sx={{ display: "flex", justifyContent: "center" }}>
           <Loader />
         </Popover.Dropdown>

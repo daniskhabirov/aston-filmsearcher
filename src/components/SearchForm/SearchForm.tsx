@@ -19,6 +19,7 @@ export interface SearchFormValues {
   search: string;
   year: string;
   type: string;
+  page: string;
 }
 
 interface Props {
@@ -40,7 +41,7 @@ const SearchForm = ({ isFetching = false }: Props) => {
   });
 
   const debounceValue = useDebounce(form.values.search, 1000);
-  const { data: dropDownItems, isFetching: isFetchingDropDownItems } =
+  const { data: fetchedData, isFetching: dropDownItemsIsFetching } =
     omdbApi.useFetchCardsQuery(
       {
         ...initialValues,
@@ -60,7 +61,7 @@ const SearchForm = ({ isFetching = false }: Props) => {
       });
     }
     navigate(
-      `/search?search=${form.values.search}&year=${form.values.year}&type=${form.values.type}`,
+      `/search?search=${form.values.search}&year=${form.values.year}&type=${form.values.type}&page=1`,
     );
   };
 
@@ -69,8 +70,8 @@ const SearchForm = ({ isFetching = false }: Props) => {
       <Flex justify="center" gap={5}>
         <SearchInput
           search={form.getInputProps("search")}
-          dropDownItems={dropDownItems?.slice(0, 5)}
-          isFetchingDropDownItems={isFetchingDropDownItems}
+          dropDownItems={fetchedData?.cards?.slice(0, 5)}
+          dropDownItemsIsFetching={dropDownItemsIsFetching}
         />
         <YearInput year={form.getInputProps("year")} />
         <TypeInput type={form.getInputProps("type")} />

@@ -1,6 +1,8 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 
 import transformData from "../utils/transformData";
+import { Card } from "../components/CardItem/CardItem";
+import { SearchFormValues } from "../components/SearchForm/SearchForm";
 
 export const API_KEY = process.env.REACT_APP_API_KEY;
 
@@ -8,9 +10,14 @@ export interface Entity {
   [key: string]: string;
 }
 
-export interface SearchResponse {
+interface ServerResponse {
   Response: string;
   Search: Entity[];
+  totalResults: number;
+}
+
+interface TransformedResponse {
+  cards: Card[];
   totalResults: number;
 }
 
@@ -18,14 +25,18 @@ export const omdbApi = createApi({
   reducerPath: "omdbApi",
   baseQuery: fetchBaseQuery({ baseUrl: "https://www.omdbapi.com" }),
   endpoints: (builder) => ({
-    fetchCards: builder.query({
-      query: ({ search, year, type }) => ({
+    fetchCards: builder.query<TransformedResponse, SearchFormValues>({
+      query: ({ search, year, type, page }) => ({
         url: "/",
-        params: { apikey: API_KEY, s: search, y: year, type: type },
+        params: { apikey: API_KEY, s: search, y: year, type: type, page: page },
       }),
-      transformResponse: (data: SearchResponse) => {
-        if (data.Response === "False") return [];
-        return data.Search.map(transformData);
+      transformResponse: (response: ServerResponse): TransformedResponse => {
+        if (response.Response === "False")
+          return { cards: [], totalResults: 0 };
+        return {
+          cards: response.Search.map(transformData),
+          totalResults: response.totalResults,
+        };
       },
     }),
 
@@ -34,9 +45,9 @@ export const omdbApi = createApi({
         url: "/",
         params: { apikey: API_KEY, i: id },
       }),
-      transformResponse: (data: Entity) => {
-        if (data.Response === "False") return null;
-        return transformData(data);
+      transformResponse: (response: Entity) => {
+        if (response.Response === "False") return null;
+        return transformData(response);
       },
     }),
   }),
