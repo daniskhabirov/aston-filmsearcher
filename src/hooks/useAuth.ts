@@ -19,18 +19,18 @@ import { doc, setDoc } from "@firebase/firestore";
 import { Action, ThunkDispatch } from "@reduxjs/toolkit";
 
 import {
-  fetchFirestoreData,
+  fetchDbData,
   userLoggedIn,
   userLoggedOut,
 } from "../app/reducers/userSlice";
-import { firestore } from "../utils/firebase";
+import { db } from "../utils/firebase";
 import { RootState } from "../app/store";
 
-export const thunkFetchFirestoreData = (
+export const thunkFetchDbData = (
   dispatch: ThunkDispatch<RootState, string, Action>,
   userId: string,
 ) => {
-  dispatch(fetchFirestoreData(userId));
+  dispatch(fetchDbData(userId));
 };
 
 interface Props {
@@ -49,7 +49,7 @@ const useAuth = () => {
         .then((userCredential) => {
           const { uid, email } = userCredential.user;
           dispatch(userLoggedIn({ uid, email }));
-          setDoc(doc(firestore, "users", uid), {
+          setDoc(doc(db, "users", uid), {
             searchHistory: [],
             favoriteCardIds: [],
           });
@@ -72,7 +72,7 @@ const useAuth = () => {
         .then((userCredential) => {
           const { uid, email } = userCredential.user;
           dispatch(userLoggedIn({ uid, email }));
-          thunkFetchFirestoreData(dispatch, uid);
+          thunkFetchDbData(dispatch, uid);
           navigate("/");
         })
         .catch((error) => {
@@ -93,10 +93,11 @@ const useAuth = () => {
       const isNewUser = details?.isNewUser;
       const { uid, email } = result.user;
       dispatch(userLoggedIn({ uid, email }));
-      thunkFetchFirestoreData(dispatch, uid);
+      thunkFetchDbData(dispatch, uid);
       if (isNewUser) {
-        setDoc(doc(firestore, "users", uid), {
+        setDoc(doc(db, "users", uid), {
           searchHistory: [],
+          favoriteCardIds: [],
         });
       }
       navigate("/");
