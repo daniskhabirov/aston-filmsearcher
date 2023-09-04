@@ -7,7 +7,7 @@ import { LoadingOverlay } from "@mantine/core";
 import Header from "./components/Header/Header";
 import Router from "./app/routing/router";
 import useAuthLoadingState from "./hooks/useAuthLoadingState";
-import PageContainer from "./components/PageContainer/PageContainer";
+import PageLayout from "./components/PageLayout/PageLayout";
 
 const App = () => {
   const authStateIsLoading = useAuthLoadingState();
@@ -19,9 +19,9 @@ const App = () => {
   return (
     <BrowserRouter>
       <Header />
-      <PageContainer>
+      <PageLayout>
         <Router />
-      </PageContainer>
+      </PageLayout>
     </BrowserRouter>
   );
 };

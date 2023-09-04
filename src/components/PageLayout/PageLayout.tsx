@@ -1,13 +1,13 @@
 import React from "react";
 
-import s from "./PageContainer.module.css";
+import s from "./PageLayout.module.css";
 
 type Children = {
   children: JSX.Element;
 };
 
-const PageContainer = ({ children }: Children) => {
+const PageLayout = ({ children }: Children) => {
   return <div className={s.container}>{children}</div>;
 };
 
-export default PageContainer;
+export default PageLayout;

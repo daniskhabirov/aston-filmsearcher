@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 
-import { Flex, Text } from "@mantine/core";
+import { Flex, Stack, Text } from "@mantine/core";
 
 import { useAppDispatch, useAppSelector } from "../../hooks/reduxHooks";
 import {
@@ -20,14 +20,14 @@ const FavoritePage = () => {
   }, [favoriteCardIds]);
 
   return (
-    <>
+    <Stack>
       <Text align="center">Favorite movies</Text>
       <Flex justify={"center"} gap="md" wrap="wrap">
         {favoriteCards.map((card) => {
           return <CardItem key={card.imdbID} card={card} />;
         })}
       </Flex>
-    </>
+    </Stack>
   );
 };
 
