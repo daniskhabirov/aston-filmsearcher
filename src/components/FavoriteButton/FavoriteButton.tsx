@@ -18,10 +18,10 @@ const CheckboxIcon: CheckboxProps["icon"] = ({
     <IconHeart className={className} />
   );
 
-interface Props {
+type Props = {
   checked: boolean;
   checkboxHandler: ChangeEventHandler<HTMLInputElement>;
-}
+};
 
 const FavoriteButton = ({ checked, checkboxHandler }: Props) => {
   return (
