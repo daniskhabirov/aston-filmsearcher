@@ -4,7 +4,7 @@ import { useDispatch } from "react-redux";
 
 import { userLoggedIn } from "../app/reducers/userSlice";
 
-import { thunkFetchDbData } from "./useAuth";
+import { thunkFetchUserData } from "./useAuth";
 
 const useAuthLoadingState = () => {
   const [isLoading, setIsLoading] = useState(true);
@@ -16,7 +16,7 @@ const useAuthLoadingState = () => {
       if (user) {
         const { uid, email } = user;
         dispatch(userLoggedIn({ uid, email }));
-        thunkFetchDbData(dispatch, uid);
+        thunkFetchUserData(dispatch, uid);
       }
       setIsLoading(false);
     });

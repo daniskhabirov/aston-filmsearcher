@@ -39,9 +39,10 @@ const initialState: UserState = {
 export const fetchFavoriteCards = createAsyncThunk(
   "user/fetchFavoriteCards",
   async (_arg, { getState }) => {
-    const state = getState() as RootState; // getState() will return unknown type
+    const state = getState() as RootState;
     const favoriteCardIds = state.user.favoriteCardIds;
     const cards: Card[] = [];
+
     for (const cardId of favoriteCardIds) {
       const response = await fetch(
         `http://www.omdbapi.com/?apikey=${API_KEY}&i=${cardId}`,
@@ -55,8 +56,8 @@ export const fetchFavoriteCards = createAsyncThunk(
   },
 );
 
-export const fetchDbData = createAsyncThunk(
-  "user/fetchDbData",
+export const fetchUserData = createAsyncThunk(
+  "user/fetchUserData",
   async (userId: string) => {
     const response = await getDoc(doc(db, "users", userId));
     return response.data();
@@ -94,10 +95,10 @@ const userSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder
-      .addCase(fetchDbData.fulfilled, (state, { payload: dbData }) => {
-        if (dbData) {
-          state.favoriteCardIds = dbData.favoriteCardIds;
-          state.historyItems = dbData.searchHistory;
+      .addCase(fetchUserData.fulfilled, (state, { payload: userData }) => {
+        if (userData) {
+          state.favoriteCardIds = userData.favoriteCardIds;
+          state.historyItems = userData.searchHistory;
         }
       })
       .addCase(
