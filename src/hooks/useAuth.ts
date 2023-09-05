@@ -47,8 +47,8 @@ const useAuth = () => {
     async ({ email, password }: Props) => {
       await createUserWithEmailAndPassword(auth, email, password)
         .then((userCredential) => {
-          const { uid, email } = userCredential.user;
-          dispatch(userLoggedIn({ uid, email }));
+          const { uid, email, displayName } = userCredential.user;
+          dispatch(userLoggedIn({ uid, email, displayName }));
           setDoc(doc(db, "users", uid), {
             searchHistory: [],
             favoriteCardIds: [],
@@ -70,8 +70,8 @@ const useAuth = () => {
     async ({ email, password }: Props) => {
       await signInWithEmailAndPassword(auth, email, password)
         .then((userCredential) => {
-          const { uid, email } = userCredential.user;
-          dispatch(userLoggedIn({ uid, email }));
+          const { uid, email, displayName } = userCredential.user;
+          dispatch(userLoggedIn({ uid, email, displayName }));
           thunkFetchDbData(dispatch, uid);
           navigate("/");
         })
@@ -91,8 +91,8 @@ const useAuth = () => {
     await signInWithPopup(auth, provider).then((result) => {
       const details = getAdditionalUserInfo(result);
       const isNewUser = details?.isNewUser;
-      const { uid, email } = result.user;
-      dispatch(userLoggedIn({ uid, email }));
+      const { uid, email, displayName } = result.user;
+      dispatch(userLoggedIn({ uid, email, displayName }));
       thunkFetchDbData(dispatch, uid);
       if (isNewUser) {
         setDoc(doc(db, "users", uid), {

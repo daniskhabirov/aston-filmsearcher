@@ -18,11 +18,13 @@ export type HistoryItem = {
 type UserProps = {
   uid: string;
   email: string | null;
+  displayName: string | null;
 };
 
 interface UserState {
   userId: string;
   email: string;
+  userName: string;
   historyItems: HistoryItem[];
   favoriteCardIds: string[];
   favoriteCards: Card[];
@@ -31,6 +33,7 @@ interface UserState {
 const initialState: UserState = {
   userId: "",
   email: "",
+  userName: "",
   historyItems: [],
   favoriteCardIds: [],
   favoriteCards: [],
@@ -70,6 +73,7 @@ const userSlice = createSlice({
     userLoggedIn(state, { payload: user }: PayloadAction<UserProps>) {
       state.userId = user.uid;
       state.email = user.email || "";
+      state.userName = user.displayName || "";
     },
     userLoggedOut(state) {
       state.userId = initialState.userId;

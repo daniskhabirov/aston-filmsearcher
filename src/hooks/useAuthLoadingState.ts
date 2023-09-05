@@ -14,8 +14,8 @@ const useAuthLoadingState = () => {
     const auth = getAuth();
     const unsubscribe = onAuthStateChanged(auth, (user) => {
       if (user) {
-        const { uid, email } = user;
-        dispatch(userLoggedIn({ uid, email }));
+        const { uid, email, displayName } = user;
+        dispatch(userLoggedIn({ uid, email, displayName }));
         thunkFetchDbData(dispatch, uid);
       }
       setIsLoading(false);
