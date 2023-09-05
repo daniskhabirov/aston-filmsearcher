@@ -1,5 +1,5 @@
 import React, { StrictMode } from "react";
-import ReactDOM from "react-dom/client";
+import { createRoot } from "react-dom/client";
 
 import "./index.css";
 import { Provider as ReduxProvider } from "react-redux";
@@ -7,21 +7,24 @@ import { MantineProvider } from "@mantine/core";
 
 import { Notifications } from "@mantine/notifications";
 
+import { ErrorBoundary } from "react-error-boundary";
+
 import App from "./App";
 
 import { store } from "./app/store";
+import ErrorFallback from "./components/ErrorFallback/ErrorFallback";
 
-const root = ReactDOM.createRoot(
-  document.getElementById("root") as HTMLElement,
-);
+const root = createRoot(document.getElementById("root") as HTMLElement);
 
 root.render(
   <StrictMode>
-    <MantineProvider withGlobalStyles withNormalizeCSS>
-      <ReduxProvider store={store}>
-        <Notifications />
-        <App />
-      </ReduxProvider>
-    </MantineProvider>
+    <ErrorBoundary FallbackComponent={ErrorFallback}>
+      <MantineProvider withGlobalStyles withNormalizeCSS>
+        <ReduxProvider store={store}>
+          <Notifications />
+          <App />
+        </ReduxProvider>
+      </MantineProvider>
+    </ErrorBoundary>
   </StrictMode>,
 );
