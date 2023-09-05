@@ -44,7 +44,7 @@ const LoginPage = () => {
     <Paper
       withBorder
       p="xl"
-      sx={{ maxWidth: "500px", margin: "50px auto 0 auto" }}
+      sx={{ width: "50%", maxWidth: "500px", margin: "50px auto 0 auto" }}
     >
       <Text size="lg" weight={500}>
         Welcome, login with
@@ -52,7 +52,7 @@ const LoginPage = () => {
 
       <LoginWithGoogleButton />
 
-      <Divider label="Or continue with email" labelPosition="center" my="lg" />
+      <Divider label="or continue with email" labelPosition="center" my="lg" />
 
       <form onSubmit={form.onSubmit(handleSubmit)}>
         <Stack>

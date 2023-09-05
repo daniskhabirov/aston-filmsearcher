@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useMemo } from "react";
 
 import {
   Card as CardContainer,
@@ -6,7 +6,16 @@ import {
   Stack,
   Text,
   Button,
+  Flex,
 } from "@mantine/core";
+import { useNavigate } from "react-router";
+
+import FavoriteButton from "../FavoriteButton/FavoriteButton";
+import { useAppSelector } from "../../hooks/reduxHooks";
+import { checkIsFavoriteByCardId } from "../../utils/redux";
+import useFavoriteCard from "../../hooks/useFavoriteCards";
+import { getFavoriteCardIds, getUserId } from "../../app/reducers/selectors";
+import IfAuth from "../auth/IfAuth/IfAuth";
 
 export interface Card {
   poster: string;
@@ -14,6 +23,16 @@ export interface Card {
   type: string;
   year: string;
   imdbID: string;
+  actors?: string;
+  genre?: string;
+  country?: string;
+  runtime?: string;
+  director?: string;
+  writer?: string;
+  released?: string;
+  imdbRating?: string;
+  imdbVotes?: string;
+  plot?: string;
 }
 
 interface Props {
@@ -21,6 +40,30 @@ interface Props {
 }
 
 const CardItem = ({ card }: Props) => {
+  const navigate = useNavigate();
+
+  const userId = useAppSelector(getUserId);
+  const favoriteCardIds = useAppSelector(getFavoriteCardIds);
+  const checkIsFavorite = useMemo(checkIsFavoriteByCardId, []);
+  const { updateFavoriteList } = useFavoriteCard();
+
+  const isFavorite = useAppSelector((state) => {
+    if (card) {
+      return checkIsFavorite(state, card.imdbID);
+    }
+    return false;
+  });
+
+  const checkboxHandler = () => {
+    if (card) {
+      updateFavoriteList({ userId, favoriteCardIds, cardId: card.imdbID });
+    }
+  };
+
+  const handleClick = () => {
+    navigate(`/card/${card.imdbID}`);
+  };
+
   return (
     <CardContainer
       shadow="sm"
@@ -30,8 +73,8 @@ const CardItem = ({ card }: Props) => {
         width: "300px",
         display: "flex",
         flexDirection: "column",
-        justifyContent: "space-between",
         backgroundColor: "inherit",
+        margin: "2px",
       }}
     >
       <CardContainer.Section>
@@ -39,10 +82,29 @@ const CardItem = ({ card }: Props) => {
       </CardContainer.Section>
       <Stack mt="md">
         <Text weight={500}>{card.title}</Text>
-        <Text size="sm" color="dimmed">
-          {card.year}, {card.type}
-        </Text>
-        <Button variant="light" radius="md">
+        <Flex gap={10} align="center" justify="space-between">
+          <Text size="sm" color="dimmed">
+            {card.year}, {card.type}
+          </Text>
+          <IfAuth>
+            <FavoriteButton
+              checked={isFavorite}
+              checkboxHandler={checkboxHandler}
+            />
+          </IfAuth>
+        </Flex>
+        <Button
+          variant="light"
+          radius="md"
+          fullWidth
+          onClick={handleClick}
+          sx={{
+            ":hover": {
+              cursor: "pointer",
+              transform: "translateY(-3px)",
+            },
+          }}
+        >
           More details
         </Button>
       </Stack>

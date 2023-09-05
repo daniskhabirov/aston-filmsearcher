@@ -9,7 +9,7 @@ interface Props {
 const SearchInput = ({ search }: Props) => {
   return (
     <TextInput
-      sx={{ width: "300px" }}
+      sx={{ width: "100%" }}
       icon={<IconSearch size="1.1rem" stroke={1.5} />}
       placeholder="Search"
       {...search}

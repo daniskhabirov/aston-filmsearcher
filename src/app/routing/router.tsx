@@ -6,8 +6,8 @@ import { LoadingOverlay } from "@mantine/core";
 import HomePage from "../../pages/HomePage/HomePage";
 import SearchPage from "../../pages/SearchPage/SearchPage";
 import HistoryPage from "../../pages/HistoryPage/HistoryPage";
+import CardPage from "../../pages/CardPage/CardPage";
 import LoginPage from "../../pages/LoginPage/LoginPage";
-
 import SignUpPage from "../../pages/SignUpPage/SignUpPage";
 
 import ProtectedRoute from "./ProtectedRoute";
@@ -21,6 +21,7 @@ const Router = () => {
         <Route path="/history" element={<ProtectedRoute />}>
           <Route index element={<HistoryPage />} />
         </Route>
+        <Route path="/card/:id" element={<CardPage />} />
         <Route path="/login" element={<LoginPage />} />
         <Route path="/signup" element={<SignUpPage />} />
       </Routes>

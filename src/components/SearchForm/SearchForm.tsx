@@ -56,7 +56,7 @@ const SearchForm = ({ isFetching = false }: Props) => {
         <SearchInput search={form.getInputProps("search")} />
         <YearInput year={form.getInputProps("year")} />
         <TypeInput type={form.getInputProps("type")} />
-        <Button type="submit" loading={isFetching}>
+        <Button type="submit" loading={isFetching} sx={{ width: "150px" }}>
           Search
         </Button>
       </Flex>

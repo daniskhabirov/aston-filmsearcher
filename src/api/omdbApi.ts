@@ -28,5 +28,16 @@ export const omdbApi = createApi({
         return data.Search.map(transformData);
       },
     }),
+
+    fetchCardById: builder.query({
+      query: (id) => ({
+        url: "/",
+        params: { apikey: API_KEY, i: id },
+      }),
+      transformResponse: (data: Entity) => {
+        if (data.Response === "False") return null;
+        return transformData(data);
+      },
+    }),
   }),
 });
