@@ -47,7 +47,7 @@ const SignUpPage = () => {
       sx={{ width: "50%", maxWidth: "500px", margin: "50px auto 0 auto" }}
     >
       <Text size="lg" weight={500}>
-        Welcome, login with
+        Welcome, signUp with
       </Text>
 
       <LoginWithGoogleButton />
