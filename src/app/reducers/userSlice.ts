@@ -56,8 +56,8 @@ export const fetchFavoriteCards = createAsyncThunk(
   },
 );
 
-export const fetchUserData = createAsyncThunk(
-  "user/fetchUserData",
+export const fetchUserDetails = createAsyncThunk(
+  "user/fetchUserDetails",
   async (userId: string) => {
     const response = await getDoc(doc(db, "users", userId));
     return response.data();
@@ -95,12 +95,15 @@ const userSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder
-      .addCase(fetchUserData.fulfilled, (state, { payload: userData }) => {
-        if (userData) {
-          state.favoriteCardIds = userData.favoriteCardIds;
-          state.historyItems = userData.searchHistory;
-        }
-      })
+      .addCase(
+        fetchUserDetails.fulfilled,
+        (state, { payload: userDetails }) => {
+          if (userDetails) {
+            state.favoriteCardIds = userDetails.favoriteCardIds;
+            state.historyItems = userDetails.searchHistory;
+          }
+        },
+      )
       .addCase(
         fetchFavoriteCards.fulfilled,
         (state, { payload: favoriteCards }) => {

@@ -19,19 +19,12 @@ import { doc, setDoc } from "@firebase/firestore";
 import { Action, ThunkDispatch } from "@reduxjs/toolkit";
 
 import {
-  fetchUserData,
+  fetchUserDetails,
   userLoggedIn,
   userLoggedOut,
 } from "../app/reducers/userSlice";
 import { db } from "../utils/firebase";
 import { RootState } from "../app/store";
-
-export const thunkFetchUserData = (
-  dispatch: ThunkDispatch<RootState, string, Action>,
-  userId: string,
-) => {
-  dispatch(fetchUserData(userId));
-};
 
 interface Props {
   email: string;
@@ -41,6 +34,7 @@ interface Props {
 const useAuth = () => {
   const auth = getAuth();
   const dispatch = useDispatch();
+  const thunkDispatch = useDispatch<ThunkDispatch<RootState, string, Action>>();
   const navigate = useNavigate();
 
   const signUp = useCallback(
@@ -72,7 +66,7 @@ const useAuth = () => {
         .then((userCredential) => {
           const { uid, email } = userCredential.user;
           dispatch(userLoggedIn({ uid, email }));
-          thunkFetchUserData(dispatch, uid);
+          thunkDispatch(fetchUserDetails(uid));
           navigate("/");
         })
         .catch((error) => {
@@ -93,12 +87,13 @@ const useAuth = () => {
       const isNewUser = details?.isNewUser;
       const { uid, email } = result.user;
       dispatch(userLoggedIn({ uid, email }));
-      thunkFetchUserData(dispatch, uid);
       if (isNewUser) {
         setDoc(doc(db, "users", uid), {
           searchHistory: [],
           favoriteCardIds: [],
         });
+      } else {
+        thunkDispatch(fetchUserDetails(uid));
       }
       navigate("/");
     });
