@@ -1,7 +1,11 @@
 import { PayloadAction, createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { doc, getDoc } from "firebase/firestore";
 
-import { firestore } from "../../utils/firebase";
+import { db } from "../../utils/firebase";
+import transformData from "../../utils/transformData";
+import { Card } from "../../components/CardItem/CardItem";
+import { RootState } from "../store";
+import { API_KEY } from "../../api/omdbApi";
 
 export type HistoryItem = {
   id: string;
@@ -21,6 +25,7 @@ interface UserState {
   email: string;
   historyItems: HistoryItem[];
   favoriteCardIds: string[];
+  favoriteCards: Card[];
 }
 
 const initialState: UserState = {
@@ -28,12 +33,34 @@ const initialState: UserState = {
   email: "",
   historyItems: [],
   favoriteCardIds: [],
+  favoriteCards: [],
 };
 
-export const fetchFirestoreData = createAsyncThunk(
-  "user/fetchFirestoreData",
+export const fetchFavoriteCards = createAsyncThunk<
+  Card[],
+  void,
+  { state: RootState }
+>("user/fetchFavoriteCards", async (_arg, { getState }) => {
+  const state = getState();
+  const favoriteCardIds = state.user.favoriteCardIds;
+  const cards = [];
+
+  for (const cardId of favoriteCardIds) {
+    const response = await fetch(
+      `http://www.omdbapi.com/?apikey=${API_KEY}&i=${cardId}`,
+    );
+    const data = await response.json();
+    const result = transformData(data);
+    cards.push(result);
+  }
+
+  return cards;
+});
+
+export const fetchUserDetails = createAsyncThunk(
+  "user/fetchUserDetails",
   async (userId: string) => {
-    const response = await getDoc(doc(firestore, "users", userId));
+    const response = await getDoc(doc(db, "users", userId));
     return response.data();
   },
 );
@@ -68,15 +95,24 @@ const userSlice = createSlice({
     },
   },
   extraReducers: (builder) => {
-    builder.addCase(
-      fetchFirestoreData.fulfilled,
-      (state, { payload: firestoreData }) => {
-        if (firestoreData) {
-          state.favoriteCardIds = firestoreData.favoriteCardIds;
-          state.historyItems = firestoreData.searchHistory;
-        }
-      },
-    );
+    builder
+      .addCase(
+        fetchUserDetails.fulfilled,
+        (state, { payload: userDetails }) => {
+          if (userDetails) {
+            state.favoriteCardIds = userDetails.favoriteCardIds;
+            state.historyItems = userDetails.searchHistory;
+          }
+        },
+      )
+      .addCase(
+        fetchFavoriteCards.fulfilled,
+        (state, { payload: favoriteCards }) => {
+          if (favoriteCards) {
+            state.favoriteCards = favoriteCards;
+          }
+        },
+      );
   },
 });
 

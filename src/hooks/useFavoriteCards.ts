@@ -7,7 +7,7 @@ import {
   favoriteCardIdAdded,
   favoriteCardIdDeleted,
 } from "../app/reducers/userSlice";
-import { firestore } from "../utils/firebase";
+import { db } from "../utils/firebase";
 
 type UpdateFavoriteListProps = {
   userId: string;
@@ -28,7 +28,7 @@ const useFavoriteCard = () => {
         result.push(cardId);
         dispatch(favoriteCardIdAdded(cardId));
       }
-      updateDoc(doc(firestore, "users", userId), {
+      updateDoc(doc(db, "users", userId), {
         favoriteCardIds: result,
       });
     },

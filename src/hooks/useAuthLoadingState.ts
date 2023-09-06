@@ -2,13 +2,13 @@ import { getAuth, onAuthStateChanged } from "@firebase/auth";
 import { useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
 
-import { userLoggedIn } from "../app/reducers/userSlice";
-
-import { thunkFetchFirestoreData } from "./useAuth";
+import { fetchUserDetails, userLoggedIn } from "../app/reducers/userSlice";
+import { AsyncAppDispatch } from "../app/store";
 
 const useAuthLoadingState = () => {
   const [isLoading, setIsLoading] = useState(true);
   const dispatch = useDispatch();
+  const asyncDispatch = useDispatch<AsyncAppDispatch>();
 
   useEffect(() => {
     const auth = getAuth();
@@ -16,7 +16,7 @@ const useAuthLoadingState = () => {
       if (user) {
         const { uid, email } = user;
         dispatch(userLoggedIn({ uid, email }));
-        thunkFetchFirestoreData(dispatch, uid);
+        asyncDispatch(fetchUserDetails(uid));
       }
       setIsLoading(false);
     });
