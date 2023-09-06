@@ -10,6 +10,7 @@ import { Notifications } from "@mantine/notifications";
 import App from "./App";
 
 import { store } from "./app/store";
+import { ThemeProvider } from "./utils/themeContext";
 
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement,
@@ -17,11 +18,13 @@ const root = ReactDOM.createRoot(
 
 root.render(
   <StrictMode>
-    <MantineProvider withGlobalStyles withNormalizeCSS>
-      <ReduxProvider store={store}>
-        <Notifications />
-        <App />
-      </ReduxProvider>
-    </MantineProvider>
+    <ThemeProvider>
+      <MantineProvider withGlobalStyles withNormalizeCSS>
+        <ReduxProvider store={store}>
+          <Notifications />
+          <App />
+        </ReduxProvider>
+      </MantineProvider>
+    </ThemeProvider>
   </StrictMode>,
 );
