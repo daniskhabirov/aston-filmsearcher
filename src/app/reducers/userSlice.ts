@@ -36,25 +36,26 @@ const initialState: UserState = {
   favoriteCards: [],
 };
 
-export const fetchFavoriteCards = createAsyncThunk(
-  "user/fetchFavoriteCards",
-  async (_arg, { getState }) => {
-    const state = getState() as RootState;
-    const favoriteCardIds = state.user.favoriteCardIds;
-    const cards: Card[] = [];
+export const fetchFavoriteCards = createAsyncThunk<
+  Card[],
+  void,
+  { state: RootState }
+>("user/fetchFavoriteCards", async (_arg, { getState }) => {
+  const state = getState();
+  const favoriteCardIds = state.user.favoriteCardIds;
+  const cards = [];
 
-    for (const cardId of favoriteCardIds) {
-      const response = await fetch(
-        `http://www.omdbapi.com/?apikey=${API_KEY}&i=${cardId}`,
-      );
-      const data = await response.json();
-      const result = transformData(data);
-      cards.push(result);
-    }
+  for (const cardId of favoriteCardIds) {
+    const response = await fetch(
+      `http://www.omdbapi.com/?apikey=${API_KEY}&i=${cardId}`,
+    );
+    const data = await response.json();
+    const result = transformData(data);
+    cards.push(result);
+  }
 
-    return cards;
-  },
-);
+  return cards;
+});
 
 export const fetchUserDetails = createAsyncThunk(
   "user/fetchUserDetails",

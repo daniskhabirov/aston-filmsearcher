@@ -16,15 +16,13 @@ import { notifications } from "@mantine/notifications";
 
 import { doc, setDoc } from "@firebase/firestore";
 
-import { Action, ThunkDispatch } from "@reduxjs/toolkit";
-
 import {
   fetchUserDetails,
   userLoggedIn,
   userLoggedOut,
 } from "../app/reducers/userSlice";
 import { db } from "../utils/firebase";
-import { RootState } from "../app/store";
+import { AsyncAppDispatch } from "../app/store";
 
 interface Props {
   email: string;
@@ -34,7 +32,7 @@ interface Props {
 const useAuth = () => {
   const auth = getAuth();
   const dispatch = useDispatch();
-  const thunkDispatch = useDispatch<ThunkDispatch<RootState, string, Action>>();
+  const asyncDispatch = useDispatch<AsyncAppDispatch>();
   const navigate = useNavigate();
 
   const signUp = useCallback(
@@ -66,7 +64,7 @@ const useAuth = () => {
         .then((userCredential) => {
           const { uid, email } = userCredential.user;
           dispatch(userLoggedIn({ uid, email }));
-          thunkDispatch(fetchUserDetails(uid));
+          asyncDispatch(fetchUserDetails(uid));
           navigate("/");
         })
         .catch((error) => {
@@ -93,7 +91,7 @@ const useAuth = () => {
           favoriteCardIds: [],
         });
       } else {
-        thunkDispatch(fetchUserDetails(uid));
+        asyncDispatch(fetchUserDetails(uid));
       }
       navigate("/");
     });
