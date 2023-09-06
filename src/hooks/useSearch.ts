@@ -1,6 +1,12 @@
 import { useSearchParams } from "react-router-dom";
 
 import { SearchFormValues } from "../components/SearchForm/SearchForm";
+import { compareObjects } from "../utils/compareObjects";
+
+interface ValuesChangedProps {
+  lastSearch?: SearchFormValues;
+  currentSearch: SearchFormValues;
+}
 
 const useSearch = () => {
   const getInitialValues = () => {
@@ -16,7 +22,16 @@ const useSearch = () => {
     return initialValues;
   };
 
-  return { getInitialValues };
+  const valuesChanged = ({ lastSearch, currentSearch }: ValuesChangedProps) => {
+    const isChanged = !compareObjects({
+      obj1: { ...lastSearch },
+      obj2: { ...currentSearch },
+    });
+
+    return isChanged;
+  };
+
+  return { getInitialValues, valuesChanged };
 };
 
 export default useSearch;
