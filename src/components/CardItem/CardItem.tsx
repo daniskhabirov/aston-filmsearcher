@@ -70,7 +70,7 @@ const CardItem = ({ card }: Props) => {
       padding="lg"
       radius="md"
       sx={{
-        width: "300px",
+        width: "308px",
         display: "flex",
         flexDirection: "column",
         backgroundColor: "inherit",

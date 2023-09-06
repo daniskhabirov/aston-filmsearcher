@@ -1,12 +1,12 @@
 import { combineReducers } from "@reduxjs/toolkit";
 
-import { cardApi } from "../../api/cardApi";
+import { cardsApi } from "../../api/cardsApi";
 
 import user from "./userSlice";
 
 const rootReducer = combineReducers({
   user,
-  [cardApi.reducerPath]: cardApi.reducer,
+  [cardsApi.reducerPath]: cardsApi.reducer,
 });
 
 export default rootReducer;

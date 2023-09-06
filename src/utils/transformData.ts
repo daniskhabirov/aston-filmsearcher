@@ -1,4 +1,4 @@
-import { Entity } from "../api/cardApi";
+import { Entity } from "../api/cardsApi";
 import { Card } from "../components/CardItem/CardItem";
 
 const transformData = (data: Entity): Card => {
