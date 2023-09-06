@@ -80,6 +80,7 @@ const userSlice = createSlice({
     userLoggedOut(state) {
       state.userId = initialState.userId;
       state.email = initialState.email;
+      state.userName = initialState.userName;
     },
     historyAdded(state, action) {
       state.historyItems.push(action.payload);
