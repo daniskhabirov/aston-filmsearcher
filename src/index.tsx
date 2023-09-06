@@ -10,7 +10,7 @@ import { Notifications } from "@mantine/notifications";
 import App from "./App";
 
 import { store } from "./app/store";
-import { ThemeProvider } from "./components/ThemeProvider/ThemeProvider";
+import { ThemeProvider } from "./utils/themeContext";
 
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement,
