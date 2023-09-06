@@ -12,8 +12,8 @@ const ThemeButton = () => {
       checked={theme === "dark"}
       onChange={toggleTheme}
       size="md"
-      onLabel={<IconBrightnessDown size="inherrit" />}
-      offLabel={<IconMoon size="inherrit" />}
+      onLabel={<IconBrightnessDown width={16} height={16} />}
+      offLabel={<IconMoon width={16} height={16} />}
     />
   );
 };
