@@ -25,6 +25,7 @@ import {
 } from "../app/reducers/userSlice";
 import { db } from "../utils/firebase";
 import { RootState } from "../app/store";
+import { textReplace } from "../utils/textReplace";
 
 export const thunkFetchDbData = (
   dispatch: ThunkDispatch<RootState, string, Action>,
@@ -59,7 +60,7 @@ const useAuth = () => {
           notifications.show({
             title: "Error",
             color: "pink",
-            message: error.message + " 🤥",
+            message: textReplace(error.message, "Firebase: Error", "") + " 🤥",
           });
         });
     },
@@ -79,7 +80,7 @@ const useAuth = () => {
           notifications.show({
             title: "Error",
             color: "pink",
-            message: error.message + " 🤥",
+            message: textReplace(error.message, "Firebase: Error", "") + " 🤥",
           });
         });
     },
