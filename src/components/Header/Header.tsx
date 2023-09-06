@@ -1,5 +1,10 @@
 import React from "react";
-import { Header as HeaderContainer, Group, ActionIcon } from "@mantine/core";
+import {
+  Header as HeaderContainer,
+  Group,
+  ActionIcon,
+  Box,
+} from "@mantine/core";
 import { Link, NavLink } from "react-router-dom";
 
 import { IconGhost2 } from "@tabler/icons-react";
@@ -38,7 +43,7 @@ const Header = () => {
 
   return (
     <HeaderContainer height={60} className={s.root}>
-      <div className={s.header}>
+      <Box className={s.header}>
         <ActionIcon component={Link} to="/">
           <IconGhost2 />
         </ActionIcon>
@@ -58,7 +63,7 @@ const Header = () => {
           </IfNotAuth>
           <ThemeButton />
         </Group>
-      </div>
+      </Box>
     </HeaderContainer>
   );
 };

@@ -3,7 +3,7 @@ import { TextInput, InputProps, Popover, Stack, Loader } from "@mantine/core";
 import { IconSearch } from "@tabler/icons-react";
 
 import { Card } from "../CardItem/CardItem";
-import DropDownCardItem from "../DropDownCardItem/DropDownCardItem";
+import SuggestItem from "../SuggestItem/SuggestItem";
 
 interface Props {
   search: InputProps;
@@ -46,7 +46,7 @@ const SearchInput = ({
           <Popover.Dropdown>
             <Stack>
               {dropDownItems.map((item) => (
-                <DropDownCardItem key={item.imdbID} card={item} />
+                <SuggestItem key={item.imdbID} card={item} />
               ))}
             </Stack>
           </Popover.Dropdown>
