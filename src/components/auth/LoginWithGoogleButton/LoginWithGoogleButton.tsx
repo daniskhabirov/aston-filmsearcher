@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Button, Group } from "@mantine/core";
+import { Button } from "@mantine/core";
 
 import useAuth from "../../../hooks/useAuth";
 import GoogleIcon from "../../GoogleIcon/GoogleIcon";
@@ -14,17 +14,18 @@ const LoginWithGoogleButton = () => {
   };
 
   return (
-    <Group grow mb="md" mt="md">
-      <Button
-        leftIcon={<GoogleIcon />}
-        variant="default"
-        radius="xl"
-        onClick={handleClick}
-        loading={isLoading}
-      >
-        Google
-      </Button>
-    </Group>
+    <Button
+      leftIcon={<GoogleIcon />}
+      variant="default"
+      radius="xl"
+      onClick={handleClick}
+      loading={isLoading}
+      fullWidth
+      mb="md"
+      mt="md"
+    >
+      Google
+    </Button>
   );
 };
 
