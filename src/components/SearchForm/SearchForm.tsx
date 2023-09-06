@@ -27,7 +27,7 @@ interface Props {
 }
 
 const SearchForm = ({ isFetching = false }: Props) => {
-  const { getInitialValues, valuesChanged } = useSearch();
+  const { getInitialValues, checkValuesChanged } = useSearch();
 
   const userId = useAppSelector(getUserId);
   const historyItems = useAppSelector(getHistoryItems);
@@ -54,7 +54,7 @@ const SearchForm = ({ isFetching = false }: Props) => {
   const handleSubmit = () => {
     if (
       userId &&
-      valuesChanged({
+      checkValuesChanged({
         lastSearch: lastSearch,
         currentSearch: { ...form.values },
       })

@@ -22,7 +22,10 @@ const useSearch = () => {
     return initialValues;
   };
 
-  const valuesChanged = ({ lastSearch, currentSearch }: ValuesChangedProps) => {
+  const checkValuesChanged = ({
+    lastSearch,
+    currentSearch,
+  }: ValuesChangedProps) => {
     const isChanged = !compareObjects({
       obj1: { ...lastSearch },
       obj2: { ...currentSearch },
@@ -31,7 +34,7 @@ const useSearch = () => {
     return isChanged;
   };
 
-  return { getInitialValues, valuesChanged };
+  return { getInitialValues, checkValuesChanged };
 };
 
 export default useSearch;
