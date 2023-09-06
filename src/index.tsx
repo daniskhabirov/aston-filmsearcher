@@ -12,6 +12,7 @@ import { ErrorBoundary } from "react-error-boundary";
 import App from "./App";
 
 import { store } from "./app/store";
+import { ThemeProvider } from "./utils/themeContext";
 import ErrorFallback from "./components/ErrorFallback/ErrorFallback";
 
 const root = createRoot(document.getElementById("root") as HTMLElement);
@@ -19,12 +20,14 @@ const root = createRoot(document.getElementById("root") as HTMLElement);
 root.render(
   <StrictMode>
     <ErrorBoundary FallbackComponent={ErrorFallback}>
-      <MantineProvider withGlobalStyles withNormalizeCSS>
-        <ReduxProvider store={store}>
-          <Notifications />
-          <App />
-        </ReduxProvider>
-      </MantineProvider>
+      <ThemeProvider>
+        <MantineProvider withGlobalStyles withNormalizeCSS>
+          <ReduxProvider store={store}>
+            <Notifications />
+            <App />
+          </ReduxProvider>
+        </MantineProvider>
+      </ThemeProvider>
     </ErrorBoundary>
   </StrictMode>,
 );
