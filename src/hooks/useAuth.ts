@@ -16,23 +16,14 @@ import { notifications } from "@mantine/notifications";
 
 import { doc, setDoc } from "@firebase/firestore";
 
-import { Action, ThunkDispatch } from "@reduxjs/toolkit";
-
 import {
-  fetchDbData,
+  fetchUserDetails,
   userLoggedIn,
   userLoggedOut,
 } from "../app/reducers/userSlice";
 import { db } from "../utils/firebase";
-import { RootState } from "../app/store";
+import { AsyncAppDispatch } from "../app/store";
 import { textReplace } from "../utils/textReplace";
-
-export const thunkFetchDbData = (
-  dispatch: ThunkDispatch<RootState, string, Action>,
-  userId: string,
-) => {
-  dispatch(fetchDbData(userId));
-};
 
 interface Props {
   email: string;
@@ -42,14 +33,15 @@ interface Props {
 const useAuth = () => {
   const auth = getAuth();
   const dispatch = useDispatch();
+  const asyncDispatch = useDispatch<AsyncAppDispatch>();
   const navigate = useNavigate();
 
   const signUp = useCallback(
     async ({ email, password }: Props) => {
       await createUserWithEmailAndPassword(auth, email, password)
         .then((userCredential) => {
-          const { uid, email } = userCredential.user;
-          dispatch(userLoggedIn({ uid, email }));
+          const { uid, email, displayName } = userCredential.user;
+          dispatch(userLoggedIn({ uid, email, displayName }));
           setDoc(doc(db, "users", uid), {
             searchHistory: [],
             favoriteCardIds: [],
@@ -71,9 +63,9 @@ const useAuth = () => {
     async ({ email, password }: Props) => {
       await signInWithEmailAndPassword(auth, email, password)
         .then((userCredential) => {
-          const { uid, email } = userCredential.user;
-          dispatch(userLoggedIn({ uid, email }));
-          thunkFetchDbData(dispatch, uid);
+          const { uid, email, displayName } = userCredential.user;
+          dispatch(userLoggedIn({ uid, email, displayName }));
+          asyncDispatch(fetchUserDetails(uid));
           navigate("/");
         })
         .catch((error) => {
@@ -92,14 +84,15 @@ const useAuth = () => {
     await signInWithPopup(auth, provider).then((result) => {
       const details = getAdditionalUserInfo(result);
       const isNewUser = details?.isNewUser;
-      const { uid, email } = result.user;
-      dispatch(userLoggedIn({ uid, email }));
-      thunkFetchDbData(dispatch, uid);
+      const { uid, email, displayName } = result.user;
+      dispatch(userLoggedIn({ uid, email, displayName }));
       if (isNewUser) {
         setDoc(doc(db, "users", uid), {
           searchHistory: [],
           favoriteCardIds: [],
         });
+      } else {
+        asyncDispatch(fetchUserDetails(uid));
       }
       navigate("/");
     });

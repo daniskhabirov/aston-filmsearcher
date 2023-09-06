@@ -3,7 +3,7 @@ import { TextInput, InputProps, Popover, Stack, Loader } from "@mantine/core";
 import { IconSearch } from "@tabler/icons-react";
 
 import { Card } from "../CardItem/CardItem";
-import DropDownItem from "../DropDownCardItem/DropDownCardItem";
+import DropDownCardItem from "../DropDownCardItem/DropDownCardItem";
 
 interface Props {
   search: InputProps;
@@ -18,6 +18,12 @@ const SearchInput = ({
 }: Props) => {
   const [popoverOpened, setPopoverOpened] = useState(false);
 
+  const handleFocus = () => {
+    setTimeout(() => {
+      setPopoverOpened(!popoverOpened);
+    }, 100);
+  };
+
   return (
     <Popover width="target" opened={popoverOpened}>
       <Popover.Target>
@@ -25,8 +31,8 @@ const SearchInput = ({
           sx={{ width: "100%" }}
           icon={<IconSearch size="1.1rem" stroke={1.5} />}
           placeholder="Search, at least 3 letters..."
-          onFocusCapture={() => setPopoverOpened(true)}
-          onBlurCapture={() => setPopoverOpened(false)}
+          onFocusCapture={handleFocus}
+          onBlurCapture={handleFocus}
           {...search}
         />
       </Popover.Target>
@@ -40,7 +46,7 @@ const SearchInput = ({
           <Popover.Dropdown>
             <Stack>
               {dropDownItems.map((item) => (
-                <DropDownItem key={item.imdbID} card={item} />
+                <DropDownCardItem key={item.imdbID} card={item} />
               ))}
             </Stack>
           </Popover.Dropdown>

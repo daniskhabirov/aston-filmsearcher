@@ -18,11 +18,13 @@ export type HistoryItem = {
 type UserProps = {
   uid: string;
   email: string | null;
+  displayName: string | null;
 };
 
 interface UserState {
   userId: string;
   email: string;
+  userName: string;
   historyItems: HistoryItem[];
   favoriteCardIds: string[];
   favoriteCards: Card[];
@@ -31,32 +33,35 @@ interface UserState {
 const initialState: UserState = {
   userId: "",
   email: "",
+  userName: "",
   historyItems: [],
   favoriteCardIds: [],
   favoriteCards: [],
 };
 
-export const fetchFavoriteCards = createAsyncThunk(
-  "user/fetchFavoriteCards",
-  async (_arg, { getState }) => {
-    const state = getState() as RootState; // getState() will return unknown type
-    const favoriteCardIds = state.user.favoriteCardIds;
-    const cards: Card[] = [];
-    for (const cardId of favoriteCardIds) {
-      const response = await fetch(
-        `http://www.omdbapi.com/?apikey=${API_KEY}&i=${cardId}`,
-      );
-      const data = await response.json();
-      const result = transformData(data);
-      cards.push(result);
-    }
+export const fetchFavoriteCards = createAsyncThunk<
+  Card[],
+  void,
+  { state: RootState }
+>("user/fetchFavoriteCards", async (_arg, { getState }) => {
+  const state = getState();
+  const favoriteCardIds = state.user.favoriteCardIds;
+  const cards = [];
 
-    return cards;
-  },
-);
+  for (const cardId of favoriteCardIds) {
+    const response = await fetch(
+      `http://www.omdbapi.com/?apikey=${API_KEY}&i=${cardId}`,
+    );
+    const data = await response.json();
+    const result = transformData(data);
+    cards.push(result);
+  }
 
-export const fetchDbData = createAsyncThunk(
-  "user/fetchDbData",
+  return cards;
+});
+
+export const fetchUserDetails = createAsyncThunk(
+  "user/fetchUserDetails",
   async (userId: string) => {
     const response = await getDoc(doc(db, "users", userId));
     return response.data();
@@ -70,6 +75,7 @@ const userSlice = createSlice({
     userLoggedIn(state, { payload: user }: PayloadAction<UserProps>) {
       state.userId = user.uid;
       state.email = user.email || "";
+      state.userName = user.displayName || "";
     },
     userLoggedOut(state) {
       state.userId = initialState.userId;
@@ -94,12 +100,15 @@ const userSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder
-      .addCase(fetchDbData.fulfilled, (state, { payload: dbData }) => {
-        if (dbData) {
-          state.favoriteCardIds = dbData.favoriteCardIds;
-          state.historyItems = dbData.searchHistory;
-        }
-      })
+      .addCase(
+        fetchUserDetails.fulfilled,
+        (state, { payload: userDetails }) => {
+          if (userDetails) {
+            state.favoriteCardIds = userDetails.favoriteCardIds;
+            state.historyItems = userDetails.searchHistory;
+          }
+        },
+      )
       .addCase(
         fetchFavoriteCards.fulfilled,
         (state, { payload: favoriteCards }) => {
