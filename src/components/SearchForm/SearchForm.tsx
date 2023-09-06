@@ -23,10 +23,10 @@ export interface SearchFormValues {
 }
 
 interface Props {
-  isFetching?: boolean;
+  isLoading?: boolean;
 }
 
-const SearchForm = ({ isFetching = false }: Props) => {
+const SearchForm = ({ isLoading = false }: Props) => {
   const { getInitialValues, checkValuesChanged } = useSearch();
 
   const userId = useAppSelector(getUserId);
@@ -45,11 +45,10 @@ const SearchForm = ({ isFetching = false }: Props) => {
   });
 
   const debounceValue = useDebounce(form.values.search, 1000);
-  const { data: fetchedData, isFetching: dropDownItemsIsFetching } =
-    cardsApi.useFetchCardsQuery({
-      ...initialValues,
-      search: debounceValue,
-    });
+  const { data: search, isFetching: isFetching } = cardsApi.useFetchCardsQuery({
+    ...initialValues,
+    search: debounceValue,
+  });
 
   const handleSubmit = () => {
     if (
@@ -79,12 +78,12 @@ const SearchForm = ({ isFetching = false }: Props) => {
       <Flex justify="center" gap={5}>
         <SearchInput
           search={form.getInputProps("search")}
-          dropDownItems={fetchedData?.cards?.slice(0, 5)}
-          dropDownItemsIsFetching={dropDownItemsIsFetching}
+          dropDownItems={search?.cards?.slice(0, 5)}
+          isFetching={isFetching}
         />
         <YearInput year={form.getInputProps("year")} />
         <TypeInput type={form.getInputProps("type")} />
-        <Button type="submit" loading={isFetching} sx={{ width: "150px" }}>
+        <Button type="submit" loading={isLoading} sx={{ width: "150px" }}>
           Search
         </Button>
       </Flex>

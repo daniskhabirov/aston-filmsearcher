@@ -24,7 +24,7 @@ const SearchPage = () => {
 
   return (
     <Stack>
-      <SearchForm isFetching={isFetching} />
+      <SearchForm isLoading={isFetching} />
       {isFetching ? (
         <LoadingOverlay visible={true} overlayOpacity={0} />
       ) : (

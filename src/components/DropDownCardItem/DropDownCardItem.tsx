@@ -9,7 +9,7 @@ interface Props {
   card: Card;
 }
 
-const SuggestItem = ({ card }: Props) => {
+const DropDownCardItem = ({ card }: Props) => {
   return (
     <Button
       component={Link}
@@ -30,4 +30,4 @@ const SuggestItem = ({ card }: Props) => {
   );
 };
 
-export default SuggestItem;
+export default DropDownCardItem;
