@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { TextInput, InputProps, Popover, Stack, Loader } from "@mantine/core";
 import { IconSearch } from "@tabler/icons-react";
 
@@ -16,19 +16,23 @@ const SearchInput = ({
   dropDownItems,
   dropDownItemsIsFetching,
 }: Props) => {
+  const [popoverOpened, setPopoverOpened] = useState(false);
+
   return (
-    <Popover width="target">
+    <Popover width="target" opened={popoverOpened}>
       <Popover.Target>
         <TextInput
           sx={{ width: "100%" }}
           icon={<IconSearch size="1.1rem" stroke={1.5} />}
           placeholder="Search, at least 3 letters..."
+          onFocusCapture={() => setPopoverOpened(true)}
+          onBlurCapture={() => setPopoverOpened(false)}
           {...search}
         />
       </Popover.Target>
       {dropDownItemsIsFetching ? (
         <Popover.Dropdown sx={{ display: "flex", justifyContent: "center" }}>
-          <Loader />
+          <Loader size="sm" />
         </Popover.Dropdown>
       ) : (
         dropDownItems &&

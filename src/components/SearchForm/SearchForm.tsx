@@ -42,15 +42,10 @@ const SearchForm = ({ isFetching = false }: Props) => {
 
   const debounceValue = useDebounce(form.values.search, 1000);
   const { data: fetchedData, isFetching: dropDownItemsIsFetching } =
-    omdbApi.useFetchCardsQuery(
-      {
-        ...initialValues,
-        search: debounceValue,
-      },
-      {
-        skip: debounceValue.length < 3,
-      },
-    );
+    omdbApi.useFetchCardsQuery({
+      ...initialValues,
+      search: debounceValue,
+    });
 
   const handleSubmit = () => {
     if (userId) {
