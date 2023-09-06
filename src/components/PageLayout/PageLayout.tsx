@@ -1,5 +1,7 @@
 import React from "react";
 
+import { Box } from "@mantine/core";
+
 import s from "./PageLayout.module.css";
 
 type Children = {
@@ -7,7 +9,7 @@ type Children = {
 };
 
 const PageLayout = ({ children }: Children) => {
-  return <div className={s.layout}>{children}</div>;
+  return <Box className={s.layout}>{children}</Box>;
 };
 
 export default PageLayout;
