@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Button, Flex } from "@mantine/core";
 import { useForm } from "@mantine/form";
 
@@ -27,10 +27,14 @@ interface Props {
 }
 
 const SearchForm = ({ isFetching = false }: Props) => {
-  const { getInitialValues } = useSearch();
+  const { getInitialValues, checkValuesChanged } = useSearch();
+
   const userId = useAppSelector(getUserId);
   const historyItems = useAppSelector(getHistoryItems);
   const { addHistoryItem } = useHistory();
+
+  const [lastSearch, setLastSearch] = useState<SearchFormValues>();
+
   const navigate = useNavigate();
 
   const initialValues = getInitialValues();
@@ -42,24 +46,26 @@ const SearchForm = ({ isFetching = false }: Props) => {
 
   const debounceValue = useDebounce(form.values.search, 1000);
   const { data: fetchedData, isFetching: dropDownItemsIsFetching } =
-    omdbApi.useFetchCardsQuery(
-      {
-        ...initialValues,
-        search: debounceValue,
-      },
-      {
-        skip: debounceValue.length < 3,
-      },
-    );
+    omdbApi.useFetchCardsQuery({
+      ...initialValues,
+      search: debounceValue,
+    });
 
   const handleSubmit = () => {
-    if (userId) {
+    if (
+      userId &&
+      checkValuesChanged({
+        lastSearch: lastSearch,
+        currentSearch: { ...form.values },
+      })
+    ) {
       addHistoryItem({
         historyItems: historyItems,
         userId: userId,
         searchValues: form.values,
       });
     }
+    setLastSearch(form.values);
     navigate(
       `/search?search=${form.values.search}&year=${form.values.year}&type=${form.values.type}&page=1`,
     );

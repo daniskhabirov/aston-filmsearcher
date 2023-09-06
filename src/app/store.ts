@@ -1,5 +1,7 @@
 import { configureStore } from "@reduxjs/toolkit";
 
+import { Action, ThunkDispatch } from "@reduxjs/toolkit";
+
 import { omdbApi } from "../api/omdbApi";
 
 import rootReducer from "./reducers/rootReducer";
@@ -16,3 +18,4 @@ export const store = configureStore({
 
 export type RootState = ReturnType<typeof store.getState>;
 export type AppDispatch = typeof store.dispatch;
+export type AsyncAppDispatch = ThunkDispatch<RootState, string, Action>;

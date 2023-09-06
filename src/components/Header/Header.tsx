@@ -12,6 +12,8 @@ import LogoutButton from "../auth/LogoutButton/LogoutButton";
 import LoginButton from "../auth/LoginButton/LoginButton";
 import SignUpButton from "../auth/SignUpButton/SignUpButton";
 
+import ThemeButton from "../ThemeButton/ThemeButton";
+
 import s from "./Header.module.css";
 
 const LINKS = [
@@ -54,6 +56,7 @@ const Header = () => {
               <SignUpButton />
             </>
           </IfNotAuth>
+          <ThemeButton />
         </Group>
       </div>
     </HeaderContainer>
