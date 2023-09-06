@@ -73,7 +73,7 @@ const CardItem = ({ card }: Props) => {
         width: "308px",
         display: "flex",
         flexDirection: "column",
-        backgroundColor: "inherit",
+        backgroundColor: "white",
         margin: "2px",
       }}
     >

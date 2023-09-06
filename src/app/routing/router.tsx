@@ -1,15 +1,17 @@
-import React, { Suspense } from "react";
+import React, { Suspense, lazy } from "react";
 import { Route, Routes } from "react-router-dom";
 
 import { LoadingOverlay } from "@mantine/core";
 
-import HomePage from "../../pages/HomePage/HomePage";
-import SearchPage from "../../pages/SearchPage/SearchPage";
-import HistoryPage from "../../pages/HistoryPage/HistoryPage";
-import CardPage from "../../pages/CardPage/CardPage";
-import LoginPage from "../../pages/LoginPage/LoginPage";
-import SignUpPage from "../../pages/SignUpPage/SignUpPage";
-import FavoritePage from "../../pages/FavoritePage/FavoritePage";
+const HomePage = lazy(() => import("../../pages/HomePage/HomePage"));
+const SearchPage = lazy(() => import("../../pages/SearchPage/SearchPage"));
+const HistoryPage = lazy(() => import("../../pages/HistoryPage/HistoryPage"));
+const CardPage = lazy(() => import("../../pages/CardPage/CardPage"));
+const LoginPage = lazy(() => import("../../pages/LoginPage/LoginPage"));
+const SignUpPage = lazy(() => import("../../pages/SignUpPage/SignUpPage"));
+const FavoritePage = lazy(
+  () => import("../../pages/FavoritePage/FavoritePage"),
+);
 
 import ProtectedRoute from "./ProtectedRoute";
 
