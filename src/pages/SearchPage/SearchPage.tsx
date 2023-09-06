@@ -13,7 +13,7 @@ const SearchPage = () => {
   const { getInitialValues } = useSearch();
   const initialValues = getInitialValues();
 
-  const { data: response, isFetching } =
+  const { data: search, isFetching } =
     omdbApi.useFetchCardsQuery(initialValues);
 
   const handlePaginationChange = (page: number) => {
@@ -28,14 +28,14 @@ const SearchPage = () => {
       {isFetching ? (
         <LoadingOverlay visible={true} overlayOpacity={0} />
       ) : (
-        response && (
+        search && (
           <>
-            <CardList cards={response.cards} />
-            {response.totalResults > 10 && (
+            <CardList cards={search.cards} />
+            {search.totalResults > 10 && (
               <Flex justify="center">
                 <Pagination
                   value={Number(initialValues.page)}
-                  total={response.totalResults / 10}
+                  total={search.totalResults / 10}
                   onChange={handlePaginationChange}
                 />
               </Flex>

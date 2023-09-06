@@ -16,22 +16,13 @@ import { notifications } from "@mantine/notifications";
 
 import { doc, setDoc } from "@firebase/firestore";
 
-import { Action, ThunkDispatch } from "@reduxjs/toolkit";
-
 import {
-  fetchDbData,
+  fetchUserDetails,
   userLoggedIn,
   userLoggedOut,
 } from "../app/reducers/userSlice";
 import { db } from "../utils/firebase";
-import { RootState } from "../app/store";
-
-export const thunkFetchDbData = (
-  dispatch: ThunkDispatch<RootState, string, Action>,
-  userId: string,
-) => {
-  dispatch(fetchDbData(userId));
-};
+import { AsyncAppDispatch } from "../app/store";
 
 interface Props {
   email: string;
@@ -41,6 +32,7 @@ interface Props {
 const useAuth = () => {
   const auth = getAuth();
   const dispatch = useDispatch();
+  const asyncDispatch = useDispatch<AsyncAppDispatch>();
   const navigate = useNavigate();
 
   const signUp = useCallback(
@@ -72,7 +64,7 @@ const useAuth = () => {
         .then((userCredential) => {
           const { uid, email } = userCredential.user;
           dispatch(userLoggedIn({ uid, email }));
-          thunkFetchDbData(dispatch, uid);
+          asyncDispatch(fetchUserDetails(uid));
           navigate("/");
         })
         .catch((error) => {
@@ -93,12 +85,13 @@ const useAuth = () => {
       const isNewUser = details?.isNewUser;
       const { uid, email } = result.user;
       dispatch(userLoggedIn({ uid, email }));
-      thunkFetchDbData(dispatch, uid);
       if (isNewUser) {
         setDoc(doc(db, "users", uid), {
           searchHistory: [],
           favoriteCardIds: [],
         });
+      } else {
+        asyncDispatch(fetchUserDetails(uid));
       }
       navigate("/");
     });
