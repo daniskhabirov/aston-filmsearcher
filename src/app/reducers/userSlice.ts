@@ -44,8 +44,7 @@ export const fetchFavoriteCards = createAsyncThunk<
   void,
   { state: RootState }
 >("user/fetchFavoriteCards", async (_arg, { getState }) => {
-  const state = getState();
-  const favoriteCardIds = state.user.favoriteCardIds;
+  const favoriteCardIds = getState().user.favoriteCardIds;
   const cards = [];
 
   for (const cardId of favoriteCardIds) {
