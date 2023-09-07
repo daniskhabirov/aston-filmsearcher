@@ -29,7 +29,7 @@
 ## Установка
 Склонируйте репозиторий
 ```sh
-git clone https://github.com/daniskhabirov/aston-filmsearcher.git
+git clone https://github.com/daniskhabirov/aston-trainee.git
 ```
 Из корня проекта установите необходимые зависимости
 ```sh
