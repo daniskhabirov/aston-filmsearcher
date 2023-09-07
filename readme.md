@@ -1,6 +1,9 @@
 ## 👉 [**MOVIE SEARCHER**](https://aston-trainee.netlify.app/) 👈
 *Сайт для поиска фильмов*
-## `React`
+## 1 уровень (обязательный - необходимый минимум)
+- [x] Реализованы **Требования к функциональности**
+- [x] Для хранения учетных записей пользователей, их Избранного и Истории поиска, используется **Firebase**
+### `React`
 - [x] Проект написан с использованием **функциональных компонентов** с хуками в приоритете над классовыми [`components`](./src/components)
 - [x] Есть разделение на **умные** и **глупые** компоненты [`pages`](./src/pages), [`components`](./src/components)
 - [x] Есть **рендеринг списков** [`CardList`](./src/components/CardList/CardList.tsx#L15)
@@ -11,7 +14,7 @@
 - [x] Хотя бы несколько компонентов используют **PropTypes** [`FavoriteButton`](./src/components/FavoriteButton/FavoriteButton.tsx#L48), [`FavoriteButton`](./src/components/SearchForm/SearchForm.tsx#L96)
 - [x] Поиск не должен триггерить много запросов к серверу (**debounce**) [`SearchForm`](./src/components/SearchForm/SearchForm.tsx#L47)
 - [x] Есть применение **lazy** + **Suspense** [`Router`](./src/app/routing/Router.tsx)
-## `Redux`
+### `Redux`
 - [x] Используется **Modern Redux with Redux Toolkit** [`store`](./src/app/store.ts)
 - [x] Используется **слайсы** [`userSlice`](./src/app/reducers/userSlice.ts#L70)
 - [x] Есть хотя бы одна **кастомная мидлвара** [`userNameMiddleware`](./src/app/middleware/userNameMiddleware.ts)
@@ -22,9 +25,10 @@
 - [x] Используется **Firebase** для учетных записей пользователей и их Избранного и Истории поиска [`authorization`](./src/hooks/useAuth.ts#L63), [`favorites`](./src/hooks/useFavoriteCards.ts#L31), [`history`](./src/hooks/useHistory.ts#L36)
 - [x] Настроен **CI/CD** [`CI`](./.github/workflows/lint.yml)/[`CD`](https://aston-trainee.netlify.app/)
 - [x] Используется **мемоизированные селекторы** (createSelector) [`createSelector`](./src/utils/redux.ts), [`cardItem`](./src/components/CardItem/CardItem.tsx#L47)
-
-\* Для поиска фильмов используется API [omdbapi](https://www.omdbapi.com/)  
-\* Используется UI библиотека [mantine](https://mantine.dev/)
+## Другое
+- Для поиска фильмов используется API [omdbapi](https://www.omdbapi.com/)  
+- Используется UI библиотека [mantine](https://mantine.dev/), иконки [tabler](https://tabler-icons.io/)  
+- Используется библиотека [react-error-boundary](https://www.npmjs.com/package/react-error-boundary) для предохранителя
 
 ## Установка
 Склонируйте репозиторий
