@@ -4,16 +4,16 @@
 - [x] Реализованы **Требования к функциональности**
 - [x] Для хранения учетных записей пользователей, их Избранного и Истории поиска, используется **Firebase**
 ### `React`
-- [x] Проект написан с использованием **функциональных компонентов** с хуками в приоритете над классовыми [`components`](./src/components)
+- [x] Проект написан с использованием **функциональных компонентов** с хуками в приоритете над классовыми
 - [x] Есть разделение на **умные** и **глупые** компоненты [`pages`](./src/pages), [`components`](./src/components)
 - [x] Есть **рендеринг списков** [`CardList`](./src/components/CardList/CardList.tsx#L15)
-- [x] Реализована хотя бы одна **форма** [`SearchForm`](./src/components/SearchForm/SearchForm.tsx#L77)
+- [x] Реализована хотя бы одна **форма** [`SearchForm`](./src/components/SearchForm/SearchForm.tsx#L79)
 - [x] Есть применение **Контекст API** [`themeContext`](./src/utils/themeContext.tsx)
 - [x] Есть применение **предохранителя** [`ErrorBoundary`](./src/index.tsx#L21)
 - [x] Есть хотя бы один **кастомный хук** [`useAuth`](./src/hooks/useAuth.ts), [`useHistory`](./src/hooks/useHistory.ts), [`useDebounce`](./src/hooks/useDebounce.ts)
-- [x] Хотя бы несколько компонентов используют **PropTypes** [`FavoriteButton`](./src/components/FavoriteButton/FavoriteButton.tsx#L48), [`FavoriteButton`](./src/components/SearchForm/SearchForm.tsx#L96)
-- [x] Поиск не должен триггерить много запросов к серверу (**debounce**) [`SearchForm`](./src/components/SearchForm/SearchForm.tsx#L47)
-- [x] Есть применение **lazy** + **Suspense** [`Router`](./src/app/routing/Router.tsx)
+- [x] Хотя бы несколько компонентов используют **PropTypes** [`FavoriteButton`](./src/components/FavoriteButton/FavoriteButton.tsx#L48), [`SearchForm`](./src/components/SearchForm/SearchForm.tsx#L96)
+- [x] Поиск не должен триггерить много запросов к серверу (**debounce**) [`SearchForm`](./src/components/SearchForm/SearchForm.tsx#L49)
+- [x] Есть применение **lazy** + **Suspense** [`Router`](./src/app/routing/Router.tsx#L6)
 ### `Redux`
 - [x] Используется **Modern Redux with Redux Toolkit** [`store`](./src/app/store.ts)
 - [x] Используется **слайсы** [`userSlice`](./src/app/reducers/userSlice.ts#L70)
