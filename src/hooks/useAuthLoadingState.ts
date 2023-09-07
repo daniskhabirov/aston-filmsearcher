@@ -1,5 +1,5 @@
 import { getAuth, onAuthStateChanged } from "@firebase/auth";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 
 import { fetchUserDetails, userLoggedIn } from "../app/reducers/userSlice";
 
@@ -9,19 +9,16 @@ const useAuthLoadingState = () => {
   const [isLoading, setIsLoading] = useState(true);
   const dispatch = useAppDispatch();
 
-  useEffect(() => {
-    const auth = getAuth();
-    const unsubscribe = onAuthStateChanged(auth, (user) => {
-      if (user) {
-        const { uid, email, displayName } = user;
-        dispatch(userLoggedIn({ uid, email, displayName }));
-        dispatch(fetchUserDetails(uid));
-      }
-      setIsLoading(false);
-    });
+  const auth = getAuth();
 
-    return unsubscribe;
-  }, [dispatch]);
+  onAuthStateChanged(auth, (user) => {
+    if (user) {
+      const { uid, email, displayName } = user;
+      dispatch(userLoggedIn({ uid, email, displayName }));
+      dispatch(fetchUserDetails(uid));
+    }
+    setIsLoading(false);
+  });
 
   return isLoading;
 };

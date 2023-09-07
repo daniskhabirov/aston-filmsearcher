@@ -13,8 +13,8 @@ const ThemeSwitch = () => {
       checked={theme === "dark"}
       onChange={toggleTheme}
       size="md"
-      onLabel={<IconSun width={16} height={16} />}
-      offLabel={<IconMoonStars width={16} height={16} />}
+      onLabel={<IconSun width={16} height={16} cursor="pointer" />}
+      offLabel={<IconMoonStars width={16} height={16} cursor="pointer" />}
     />
   );
 };
