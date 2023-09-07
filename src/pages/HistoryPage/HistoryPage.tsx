@@ -45,7 +45,10 @@ const HistoryPage = () => {
               key={element.date}
               onClick={() => {
                 navigate(
-                  `/search?search=${element.search}&year=${element.year}&type=${element.type}`,
+                  `/search?search=${element.search}` +
+                    `${element.year ? `&year=${element.year}` : ``}` +
+                    `${element.type ? `&type=${element.type}` : ``}` +
+                    `&page=1`,
                 );
               }}
             >

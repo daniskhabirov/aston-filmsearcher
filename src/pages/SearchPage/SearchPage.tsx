@@ -18,7 +18,10 @@ const SearchPage = () => {
 
   const handlePaginationChange = (page: number) => {
     navigate(
-      `/search?search=${initialValues.search}&year=${initialValues.year}&type=${initialValues.type}&page=${page}`,
+      `/search?search=${initialValues.search}` +
+        `${initialValues.year ? `&year=${initialValues.year}` : ``}` +
+        `${initialValues.type ? `&type=${initialValues.type}` : ``}` +
+        `&page=${page}`,
     );
   };
 
