@@ -7,8 +7,8 @@ import {
   getFavoriteCardIds,
   getFavoriteCards,
 } from "../../app/reducers/selectors";
-import CardItem from "../../components/CardItem/CardItem";
 import { fetchFavoriteCards } from "../../app/reducers/userSlice";
+import CardList from "../../components/CardList/CardList";
 
 const FavoritePage = () => {
   const dispatch = useAppDispatch();
@@ -22,11 +22,11 @@ const FavoritePage = () => {
   return (
     <Stack>
       <Text align="center">Favorite movies</Text>
-      <Flex justify={"center"} gap="md" wrap="wrap">
-        {favoriteCards.map((card) => {
-          return <CardItem key={card.imdbID} card={card} />;
-        })}
-      </Flex>
+      {favoriteCards.length > 0 && (
+        <Flex justify={"center"} gap="md" wrap="wrap">
+          <CardList cards={favoriteCards} />
+        </Flex>
+      )}
     </Stack>
   );
 };

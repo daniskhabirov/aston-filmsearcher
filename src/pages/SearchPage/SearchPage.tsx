@@ -1,5 +1,5 @@
 import React from "react";
-import { Flex, LoadingOverlay, Pagination, Stack } from "@mantine/core";
+import { Flex, LoadingOverlay, Pagination, Stack, Text } from "@mantine/core";
 
 import { useNavigate } from "react-router";
 
@@ -30,21 +30,25 @@ const SearchPage = () => {
       <SearchForm isLoading={isFetching} />
       {isFetching ? (
         <LoadingOverlay visible={true} overlayOpacity={0} />
+      ) : search && search.totalResults > 0 ? (
+        <>
+          <CardList cards={search.cards} />
+          {search.totalResults > 10 && (
+            <Flex justify="center">
+              <Pagination
+                value={Number(initialValues.page)}
+                total={search.totalResults / 10}
+                onChange={handlePaginationChange}
+              />
+            </Flex>
+          )}
+        </>
       ) : (
-        search && (
-          <>
-            <CardList cards={search.cards} />
-            {search.totalResults > 10 && (
-              <Flex justify="center">
-                <Pagination
-                  value={Number(initialValues.page)}
-                  total={search.totalResults / 10}
-                  onChange={handlePaginationChange}
-                />
-              </Flex>
-            )}
-          </>
-        )
+        <Text align="center">
+          {initialValues.search
+            ? `Oh! Movies not found...`
+            : "Please, search movies..."}
+        </Text>
       )}
     </Stack>
   );
