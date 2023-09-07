@@ -4,7 +4,7 @@ import transformData from "../utils/transformData";
 import { Card } from "../components/CardItem/CardItem";
 import { SearchFormValues } from "../components/SearchForm/SearchForm";
 
-export const API_KEY = process.env.REACT_APP_API_KEY;
+export const API_KEY = process.env.REACT_APP_OMDB_API_KEY;
 
 export interface Entity {
   [key: string]: string;
