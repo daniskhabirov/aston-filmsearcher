@@ -17,7 +17,7 @@ import LogoutButton from "../auth/LogoutButton/LogoutButton";
 import LoginButton from "../auth/LoginButton/LoginButton";
 import SignUpButton from "../auth/SignUpButton/SignUpButton";
 
-import ThemeButton from "../ThemeButton/ThemeButton";
+import ThemeSwitch from "../ThemeSwitch/ThemeSwitch";
 
 import s from "./Header.module.css";
 
@@ -61,7 +61,7 @@ const Header = () => {
               <SignUpButton />
             </>
           </IfNotAuth>
-          <ThemeButton />
+          <ThemeSwitch />
         </Group>
       </Box>
     </HeaderContainer>
