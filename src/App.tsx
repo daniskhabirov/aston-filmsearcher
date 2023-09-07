@@ -5,9 +5,9 @@ import { BrowserRouter } from "react-router-dom";
 import { LoadingOverlay } from "@mantine/core";
 
 import Header from "./components/Header/Header";
-import Router from "./app/routing/router";
 import useAuthLoadingState from "./hooks/useAuthLoadingState";
 import PageLayout from "./components/PageLayout/PageLayout";
+import Router from "./app/routing/Router";
 
 const App = () => {
   const authStateIsLoading = useAuthLoadingState();
