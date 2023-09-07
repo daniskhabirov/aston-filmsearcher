@@ -48,16 +48,11 @@ const CardItem = ({ card }: Props) => {
   const { updateFavoriteList } = useFavoriteCard();
 
   const isFavorite = useAppSelector((state) => {
-    if (card) {
-      return selectIsFavorite(state, card.imdbID);
-    }
-    return false;
+    return selectIsFavorite(state, card.imdbID);
   });
 
   const checkboxHandler = () => {
-    if (card) {
-      updateFavoriteList({ userId, favoriteCardIds, cardId: card.imdbID });
-    }
+    updateFavoriteList({ userId, favoriteCardIds, cardId: card.imdbID });
   };
 
   const handleClick = () => {
