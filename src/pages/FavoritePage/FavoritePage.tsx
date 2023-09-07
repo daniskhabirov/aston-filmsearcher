@@ -17,7 +17,7 @@ const FavoritePage = () => {
 
   useEffect(() => {
     dispatch(fetchFavoriteCards());
-  }, [favoriteCardIds]);
+  }, [dispatch, favoriteCardIds]);
 
   return (
     <Stack>
