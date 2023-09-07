@@ -1,7 +1,5 @@
 import { configureStore } from "@reduxjs/toolkit";
 
-import { Action, ThunkDispatch } from "@reduxjs/toolkit";
-
 import { cardsApi } from "../api/cardsApi";
 
 import rootReducer from "./reducers/rootReducer";
@@ -18,4 +16,3 @@ export const store = configureStore({
 
 export type RootState = ReturnType<typeof store.getState>;
 export type AppDispatch = typeof store.dispatch;
-export type AsyncAppDispatch = ThunkDispatch<RootState, string, Action>;

@@ -8,7 +8,6 @@ import {
   signInWithPopup,
   getAdditionalUserInfo,
 } from "firebase/auth";
-import { useDispatch } from "react-redux";
 
 import { useNavigate } from "react-router";
 
@@ -22,8 +21,9 @@ import {
   userLoggedOut,
 } from "../app/reducers/userSlice";
 import { db } from "../utils/firebase";
-import { AsyncAppDispatch } from "../app/store";
 import { textReplace } from "../utils/textReplace";
+
+import { useAppDispatch } from "./reduxHooks";
 
 interface Props {
   email: string;
@@ -32,8 +32,7 @@ interface Props {
 
 const useAuth = () => {
   const auth = getAuth();
-  const dispatch = useDispatch();
-  const asyncDispatch = useDispatch<AsyncAppDispatch>();
+  const dispatch = useAppDispatch();
   const navigate = useNavigate();
 
   const signUp = useCallback(
@@ -65,7 +64,7 @@ const useAuth = () => {
         .then((userCredential) => {
           const { uid, email, displayName } = userCredential.user;
           dispatch(userLoggedIn({ uid, email, displayName }));
-          asyncDispatch(fetchUserDetails(uid));
+          dispatch(fetchUserDetails(uid));
           navigate("/");
         })
         .catch((error) => {
@@ -92,7 +91,7 @@ const useAuth = () => {
           favoriteCardIds: [],
         });
       } else {
-        asyncDispatch(fetchUserDetails(uid));
+        dispatch(fetchUserDetails(uid));
       }
       navigate("/");
     });
