@@ -12,7 +12,7 @@ import { useNavigate } from "react-router";
 
 import FavoriteButton from "../FavoriteButton/FavoriteButton";
 import { useAppSelector } from "../../hooks/reduxHooks";
-import { checkIsFavoriteByCardId } from "../../utils/redux";
+import { selectIsFavoriteByCardId } from "../../utils/redux";
 import useFavoriteCard from "../../hooks/useFavoriteCards";
 import { getFavoriteCardIds, getUserId } from "../../app/reducers/selectors";
 import IfAuth from "../auth/IfAuth/IfAuth";
@@ -44,12 +44,12 @@ const CardItem = ({ card }: Props) => {
 
   const userId = useAppSelector(getUserId);
   const favoriteCardIds = useAppSelector(getFavoriteCardIds);
-  const checkIsFavorite = useMemo(checkIsFavoriteByCardId, []);
+  const selectIsFavorite = useMemo(selectIsFavoriteByCardId, []);
   const { updateFavoriteList } = useFavoriteCard();
 
   const isFavorite = useAppSelector((state) => {
     if (card) {
-      return checkIsFavorite(state, card.imdbID);
+      return selectIsFavorite(state, card.imdbID);
     }
     return false;
   });
