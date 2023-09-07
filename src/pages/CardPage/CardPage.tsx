@@ -19,16 +19,16 @@ import useFavoriteCard from "../../hooks/useFavoriteCards";
 import { getFavoriteCardIds, getUserId } from "../../app/reducers/selectors";
 import IfAuth from "../../components/auth/IfAuth/IfAuth";
 
-interface MovieProps {
-  propName: string;
-  propValue: string;
+interface Field {
+  name: string;
+  value: string;
 }
 
-const MovieProp = ({ propName, propValue }: MovieProps) => {
+const Field = ({ name, value }: Field) => {
   return (
     <Group>
-      <Text color="dimmed">{propName}</Text>
-      <Text>{propValue}</Text>
+      <Text color="dimmed">{name}</Text>
+      <Text>{value}</Text>
     </Group>
   );
 };
@@ -65,19 +65,19 @@ const CardPage = () => {
       <Grid.Col span="content">
         <Stack>
           <Title order={1}>{card.title}</Title>
-          <MovieProp propName="Actors:" propValue={card.actors || ""} />
-          <MovieProp propName="Genre:" propValue={card.genre || ""} />
-          <MovieProp propName="Year:" propValue={card.year || ""} />
-          <MovieProp propName="Counry:" propValue={card.country || ""} />
-          <MovieProp propName="Runtime:" propValue={card.runtime || ""} />
-          <MovieProp propName="Director:" propValue={card.director || ""} />
-          <MovieProp propName="Writer:" propValue={card.writer || ""} />
-          <MovieProp propName="Released:" propValue={card.released || ""} />
+          <Field name="Actors:" value={card.actors || ""} />
+          <Field name="Genre:" value={card.genre || ""} />
+          <Field name="Year:" value={card.year || ""} />
+          <Field name="Counry:" value={card.country || ""} />
+          <Field name="Runtime:" value={card.runtime || ""} />
+          <Field name="Director:" value={card.director || ""} />
+          <Field name="Writer:" value={card.writer || ""} />
+          <Field name="Released:" value={card.released || ""} />
           <Group>
-            <MovieProp propName="Rating:" propValue={card.imdbRating || ""} />
-            <MovieProp propName="Votes:" propValue={card.imdbVotes || ""} />
+            <Field name="Rating:" value={card.imdbRating || ""} />
+            <Field name="Votes:" value={card.imdbVotes || ""} />
           </Group>
-          <MovieProp propName="Type:" propValue={card.type || ""} />
+          <Field name="Type:" value={card.type || ""} />
           <IfAuth>
             <FavoriteButton
               checked={isFavorite}
@@ -91,7 +91,7 @@ const CardPage = () => {
       </Grid.Col>
     </Grid>
   ) : (
-    <Text>Data not found</Text>
+    <Text>Card not found</Text>
   );
 };
 
