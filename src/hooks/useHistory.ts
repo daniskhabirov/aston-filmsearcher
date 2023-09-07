@@ -6,7 +6,14 @@ import { doc, updateDoc } from "firebase/firestore";
 import { db } from "../utils/firebase";
 import { historyAdded, historyDeletedByDate } from "../app/reducers/userSlice";
 import { SearchFormValues } from "../components/SearchForm/SearchForm";
-import { HistoryItem } from "../types";
+
+type HistoryItem = {
+  id: string;
+  search: string;
+  year: string;
+  type: string;
+  date: string;
+};
 
 interface AddItemProps {
   historyItems: HistoryItem[];
