@@ -1,4 +1,4 @@
-## 👉 [**MOVIE SEARCHER**](https://lovely-melomakarona-d54888.netlify.app/) 👈
+## 👉 [**MOVIE SEARCHER**](https://aston-trainee.netlify.app/) 👈
 *Сайт для поиска фильмов*
 ## `React`
 - [x] Проект написан с использованием **функциональных компонентов** с хуками в приоритете над классовыми [`components`](./src/components)
