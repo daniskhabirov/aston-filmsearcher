@@ -4,6 +4,8 @@ import { useForm } from "@mantine/form";
 
 import { useNavigate } from "react-router";
 
+import PropTypes from "prop-types";
+
 import SearchInput from "../SearchInput/SearchInput";
 import YearInput from "../YearInput/YearInput";
 import TypeInput from "../TypeInput/TypeInput";
@@ -22,9 +24,9 @@ export interface SearchFormValues {
   page: string;
 }
 
-interface Props {
+type Props = {
   isLoading?: boolean;
-}
+};
 
 const SearchForm = ({ isLoading = false }: Props) => {
   const { getInitialValues, checkValuesChanged } = useSearch();
@@ -89,6 +91,10 @@ const SearchForm = ({ isLoading = false }: Props) => {
       </Flex>
     </form>
   );
+};
+
+SearchForm.propTypes = {
+  isLoading: PropTypes.bool,
 };
 
 export default SearchForm;

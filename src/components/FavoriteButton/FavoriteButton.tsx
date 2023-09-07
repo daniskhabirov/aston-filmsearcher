@@ -2,6 +2,7 @@ import React from "react";
 import { Checkbox, CheckboxProps } from "@mantine/core";
 import { ChangeEventHandler } from "react";
 import { IconHeart, IconHeartFilled } from "@tabler/icons-react";
+import PropTypes from "prop-types";
 
 interface IconProps {
   indeterminate: boolean;
@@ -42,6 +43,11 @@ const FavoriteButton = ({ checked, checkboxHandler }: Props) => {
       }}
     />
   );
+};
+
+FavoriteButton.propTypes = {
+  checked: PropTypes.bool.isRequired,
+  checkboxHandler: PropTypes.func.isRequired,
 };
 
 export default FavoriteButton;
