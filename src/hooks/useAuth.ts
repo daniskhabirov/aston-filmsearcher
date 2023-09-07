@@ -81,8 +81,8 @@ const useAuth = () => {
   const loginWithGoogle = useCallback(async () => {
     const provider = new GoogleAuthProvider();
     await signInWithPopup(auth, provider).then((result) => {
-      const details = getAdditionalUserInfo(result);
-      const isNewUser = details?.isNewUser;
+      const additionalUserInfo = getAdditionalUserInfo(result);
+      const isNewUser = additionalUserInfo?.isNewUser;
       const { uid, email, displayName } = result.user;
       dispatch(userLoggedIn({ uid, email, displayName }));
       if (isNewUser) {
