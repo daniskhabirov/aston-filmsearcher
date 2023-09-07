@@ -1,7 +1,7 @@
 import React, { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
 
-import { Provider as ReduxProvider } from "react-redux";
+import { Provider } from "react-redux";
 import { MantineProvider } from "@mantine/core";
 
 import { Notifications } from "@mantine/notifications";
@@ -21,10 +21,10 @@ root.render(
     <ErrorBoundary FallbackComponent={ErrorFallback}>
       <ThemeProvider>
         <MantineProvider withGlobalStyles withNormalizeCSS>
-          <ReduxProvider store={store}>
+          <Provider store={store}>
             <Notifications />
             <App />
-          </ReduxProvider>
+          </Provider>
         </MantineProvider>
       </ThemeProvider>
     </ErrorBoundary>
