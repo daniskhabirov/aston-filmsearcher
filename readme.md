@@ -39,6 +39,6 @@ npm install
 ```sh
 npm start
 ```
-
 ## Status badges
+[![Badge lint](https://github.com/daniskhabirov/aston-trainee/actions/workflows/lint.yml/badge.svg)](https://github.com/daniskhabirov/aston-trainee/actions/workflows/lint.yml)
 [![Netlify Status](https://api.netlify.com/api/v1/badges/cb60726c-c4f1-4b5d-9478-b720882cd7fd/deploy-status)](https://aston-trainee.netlify.app)
