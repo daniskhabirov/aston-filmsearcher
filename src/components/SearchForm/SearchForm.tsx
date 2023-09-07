@@ -7,7 +7,7 @@ import { useNavigate } from "react-router";
 import SearchInput from "../SearchInput/SearchInput";
 import YearInput from "../YearInput/YearInput";
 import TypeInput from "../TypeInput/TypeInput";
-import { searchValueValidator } from "../../utils/validate";
+import { searchValidator } from "../../utils/validate";
 import { useAppSelector } from "../../hooks/reduxHooks";
 import useHistory from "../../hooks/useHistory";
 import { getHistoryItems, getUserId } from "../../app/reducers/selectors";
@@ -41,7 +41,7 @@ const SearchForm = ({ isLoading = false }: Props) => {
 
   const form = useForm<SearchFormValues>({
     initialValues: { ...initialValues },
-    validate: { search: searchValueValidator },
+    validate: { search: searchValidator },
   });
 
   const debounceValue = useDebounce(form.values.search, 1000);

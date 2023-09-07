@@ -4,5 +4,5 @@ export const emailValidator = (value: string) =>
 export const passwordValidator = (value: string) =>
   value.length < 6 ? "Password should include at least 6 characters" : null;
 
-export const searchValueValidator = (value: string) =>
+export const searchValidator = (value: string) =>
   value.length < 3 ? "Search must have at least 3 letters" : null;
