@@ -80,6 +80,9 @@ const userSlice = createSlice({
       state.userId = initialState.userId;
       state.email = initialState.email;
       state.userName = initialState.userName;
+      state.historyItems = initialState.historyItems;
+      state.favoriteCardIds = initialState.favoriteCardIds;
+      state.favoriteCards = initialState.favoriteCards;
     },
     historyAdded(state, action) {
       state.historyItems.push(action.payload);
