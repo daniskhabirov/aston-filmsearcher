@@ -1,13 +1,15 @@
 import { useCallback } from "react";
-import { useDispatch } from "react-redux";
 
 import { doc, updateDoc } from "firebase/firestore";
 
 import {
   favoriteCardIdAdded,
   favoriteCardIdDeleted,
+  fetchFavoriteCards,
 } from "../app/reducers/userSlice";
 import { db } from "../utils/firebase";
+
+import { useAppDispatch } from "./reduxHooks";
 
 type UpdateFavoriteListProps = {
   userId: string;
@@ -16,10 +18,10 @@ type UpdateFavoriteListProps = {
 };
 
 const useFavoriteCard = () => {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
 
   const updateFavoriteList = useCallback(
-    ({ userId, favoriteCardIds, cardId }: UpdateFavoriteListProps) => {
+    async ({ userId, favoriteCardIds, cardId }: UpdateFavoriteListProps) => {
       let result = Array.from(favoriteCardIds);
       if (favoriteCardIds.includes(cardId)) {
         result = result.filter((id) => id !== cardId);
@@ -28,6 +30,7 @@ const useFavoriteCard = () => {
         result.push(cardId);
         dispatch(favoriteCardIdAdded(cardId));
       }
+      await dispatch(fetchFavoriteCards());
       updateDoc(doc(db, "users", userId), {
         favoriteCardIds: result,
       });

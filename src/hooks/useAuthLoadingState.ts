@@ -1,7 +1,11 @@
 import { getAuth, onAuthStateChanged } from "@firebase/auth";
 import { useState } from "react";
 
-import { fetchUserDetails, userLoggedIn } from "../app/reducers/userSlice";
+import {
+  fetchFavoriteCards,
+  fetchUserDetails,
+  userLoggedIn,
+} from "../app/reducers/userSlice";
 
 import { useAppDispatch } from "./reduxHooks";
 
@@ -11,11 +15,12 @@ const useAuthLoadingState = () => {
 
   const auth = getAuth();
 
-  onAuthStateChanged(auth, (user) => {
+  onAuthStateChanged(auth, async (user) => {
     if (user) {
       const { uid, email, displayName } = user;
       dispatch(userLoggedIn({ uid, email, displayName }));
-      dispatch(fetchUserDetails(uid));
+      await dispatch(fetchUserDetails(uid));
+      await dispatch(fetchFavoriteCards());
     }
     setIsLoading(false);
   });

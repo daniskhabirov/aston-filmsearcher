@@ -1,4 +1,4 @@
-import React, { useMemo } from "react";
+import React, { useMemo, useState } from "react";
 
 import {
   Card as CardContainer,
@@ -45,14 +45,18 @@ const CardItem = ({ card }: Props) => {
   const userId = useAppSelector(getUserId);
   const favoriteCardIds = useAppSelector(getFavoriteCardIds);
   const selectIsFavorite = useMemo(selectIsFavoriteByCardId, []);
+
   const { updateFavoriteList } = useFavoriteCard();
+  const [isLoading, setIsLoading] = useState(false);
 
   const isFavorite = useAppSelector((state) => {
     return selectIsFavorite(state, card.imdbID);
   });
 
-  const checkboxHandler = () => {
-    updateFavoriteList({ userId, favoriteCardIds, cardId: card.imdbID });
+  const checkboxHandler = async () => {
+    setIsLoading(true);
+    await updateFavoriteList({ userId, favoriteCardIds, cardId: card.imdbID });
+    setIsLoading(false);
   };
 
   const handleClick = () => {
@@ -83,6 +87,7 @@ const CardItem = ({ card }: Props) => {
           </Text>
           <IfAuth>
             <FavoriteButton
+              isLoading={isLoading}
               checked={isFavorite}
               checkboxHandler={checkboxHandler}
             />

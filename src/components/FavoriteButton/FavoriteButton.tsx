@@ -1,5 +1,5 @@
 import React from "react";
-import { Checkbox, CheckboxProps } from "@mantine/core";
+import { Checkbox, CheckboxProps, Loader } from "@mantine/core";
 import { ChangeEventHandler } from "react";
 import { IconHeart, IconHeartFilled } from "@tabler/icons-react";
 import PropTypes from "prop-types";
@@ -20,11 +20,16 @@ const CheckboxIcon: CheckboxProps["icon"] = ({
   );
 
 type Props = {
+  isLoading?: boolean;
   checked: boolean;
   checkboxHandler: ChangeEventHandler<HTMLInputElement>;
 };
 
-const FavoriteButton = ({ checked, checkboxHandler }: Props) => {
+const FavoriteButton = ({ isLoading, checked, checkboxHandler }: Props) => {
+  if (isLoading) {
+    return <Loader size="sm" />;
+  }
+
   return (
     <Checkbox
       checked={checked}

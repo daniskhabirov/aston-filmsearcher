@@ -1,23 +1,13 @@
-import React, { useEffect } from "react";
+import React from "react";
 
 import { Flex, Stack, Text } from "@mantine/core";
 
-import { useAppDispatch, useAppSelector } from "../../hooks/reduxHooks";
-import {
-  getFavoriteCardIds,
-  getFavoriteCards,
-} from "../../app/reducers/selectors";
-import { fetchFavoriteCards } from "../../app/reducers/userSlice";
+import { useAppSelector } from "../../hooks/reduxHooks";
+import { getFavoriteCards } from "../../app/reducers/selectors";
 import CardList from "../../components/CardList/CardList";
 
 const FavoritePage = () => {
-  const dispatch = useAppDispatch();
-  const favoriteCardIds = useAppSelector(getFavoriteCardIds);
   const favoriteCards = useAppSelector(getFavoriteCards);
-
-  useEffect(() => {
-    dispatch(fetchFavoriteCards());
-  }, [dispatch, favoriteCardIds]);
 
   return (
     <Stack>
