@@ -11,7 +11,7 @@
 - [x] Есть применение **Контекст API** [`themeContext`](./src/utils/themeContext.tsx)
 - [x] Есть применение **предохранителя** [`ErrorBoundary`](./src/index.tsx#L21)
 - [x] Есть хотя бы один **кастомный хук** [`useAuth`](./src/hooks/useAuth.ts), [`useHistory`](./src/hooks/useHistory.ts), [`useDebounce`](./src/hooks/useDebounce.ts)
-- [x] Хотя бы несколько компонентов используют **PropTypes** [`FavoriteButton`](./src/components/FavoriteButton/FavoriteButton.tsx#L48), [`SearchForm`](./src/components/SearchForm/SearchForm.tsx#L96)
+- [x] Хотя бы несколько компонентов используют **PropTypes** [`FavoriteButton`](./src/components/FavoriteButton/FavoriteButton.tsx#L53), [`SearchForm`](./src/components/SearchForm/SearchForm.tsx#L96)
 - [x] Поиск не должен триггерить много запросов к серверу (**debounce**) [`SearchForm`](./src/components/SearchForm/SearchForm.tsx#L49)
 - [x] Есть применение **lazy** + **Suspense** [`Router`](./src/app/routing/Router.tsx#L6)
 ### `Redux`
@@ -22,7 +22,7 @@
 - [x] Используется **Transforming Responses**: [`cardsApi`](./src/api/cardsApi.ts#L33)
 ## 2 уровень (необязательный)
 - [x] Используется **TypeScript**
-- [x] Используется **Firebase** для учетных записей пользователей и их Избранного и Истории поиска [`authorization`](./src/hooks/useAuth.ts#L63), [`favorites`](./src/hooks/useFavoriteCards.ts#L31), [`history`](./src/hooks/useHistory.ts#L36)
+- [x] Используется **Firebase** для учетных записей пользователей и их Избранного и Истории поиска [`authorization`](./src/hooks/useAuth.ts#L63), [`favorites`](./src/hooks/useFavoriteCards.ts#L34), [`history`](./src/hooks/useHistory.ts#L36)
 - [x] Настроен **CI/CD** [`CI`](./.github/workflows/lint.yml)/[`CD`](https://aston-trainee.netlify.app/)
 - [x] Используется **мемоизированные селекторы** (createSelector) [`createSelector`](./src/utils/redux.ts), [`cardItem`](./src/components/CardItem/CardItem.tsx#L47)
 ## Другое
