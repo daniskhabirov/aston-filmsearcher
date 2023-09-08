@@ -49,7 +49,7 @@ export const fetchFavoriteCards = createAsyncThunk<
 
   for (const cardId of favoriteCardIds) {
     const response = await fetch(
-      `http://www.omdbapi.com/?apikey=${API_KEY}&i=${cardId}`,
+      `https://www.omdbapi.com/?apikey=${API_KEY}&i=${cardId}`,
     );
     const data = await response.json();
     const result = transformData(data);
