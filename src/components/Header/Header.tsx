@@ -7,7 +7,7 @@ import {
 } from "@mantine/core";
 import { Link, NavLink } from "react-router-dom";
 
-import { IconGhost2 } from "@tabler/icons-react";
+import { IconDeviceTvOld } from "@tabler/icons-react";
 
 import UserAvatar from "../UserAvatar/UserAvatar";
 
@@ -45,7 +45,7 @@ const Header = () => {
     <HeaderContainer height={60} className={s.root}>
       <Box className={s.header}>
         <ActionIcon component={Link} to="/">
-          <IconGhost2 />
+          <IconDeviceTvOld />
         </ActionIcon>
         <Group>{navLinks}</Group>
         <Group>
