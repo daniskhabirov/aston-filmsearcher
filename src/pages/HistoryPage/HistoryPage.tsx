@@ -52,10 +52,10 @@ const HistoryPage = () => {
                 );
               }}
             >
-              <td style={{ width: "60%" }}>{element.search}</td>
+              <td style={{ width: "55%" }}>{element.search}</td>
               <td style={{ width: "10%" }}>{element.year}</td>
               <td style={{ width: "10%" }}>{element.type}</td>
-              <td style={{ width: "15%" }}>{element.date}</td>
+              <td style={{ width: "20%" }}>{element.date}</td>
               <td
                 align="center"
                 style={{ width: "5%", cursor: "default" }}
