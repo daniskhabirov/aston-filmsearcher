@@ -1,5 +1,5 @@
 import { getAuth, onAuthStateChanged } from "@firebase/auth";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 import {
   fetchFavoriteCards,
@@ -13,17 +13,21 @@ const useAuthLoadingState = () => {
   const [isLoading, setIsLoading] = useState(true);
   const dispatch = useAppDispatch();
 
-  const auth = getAuth();
+  useEffect(() => {
+    const auth = getAuth();
 
-  onAuthStateChanged(auth, async (user) => {
-    if (user) {
-      const { uid, email, displayName } = user;
-      dispatch(userLoggedIn({ uid, email, displayName }));
-      await dispatch(fetchUserDetails(uid));
-      await dispatch(fetchFavoriteCards());
-    }
-    setIsLoading(false);
-  });
+    const unsubscribe = onAuthStateChanged(auth, async (user) => {
+      if (user) {
+        const { uid, email, displayName } = user;
+        dispatch(userLoggedIn({ uid, email, displayName }));
+        await dispatch(fetchUserDetails(uid));
+        await dispatch(fetchFavoriteCards());
+      }
+      setIsLoading(false);
+    });
+
+    return unsubscribe;
+  }, []);
 
   return isLoading;
 };
