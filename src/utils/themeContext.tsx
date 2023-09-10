@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useMemo } from "react";
 import { createContext, useState } from "react";
 
 export type Theme = "light" | "dark";
@@ -21,6 +21,8 @@ export const ThemeProvider = ({ children }: Children) => {
     setTheme(theme === "light" ? "dark" : "light");
   };
 
+  const value = useMemo(() => ({ theme, toggleTheme }), [theme]);
+
   const color = theme === "light" ? "#333" : "#FFF";
   const backgroundColor = theme === "light" ? "#FFF" : "#333";
 
@@ -28,8 +30,6 @@ export const ThemeProvider = ({ children }: Children) => {
   document.body.style.backgroundColor = backgroundColor;
 
   return (
-    <ThemeContext.Provider value={{ theme, toggleTheme }}>
-      {children}
-    </ThemeContext.Provider>
+    <ThemeContext.Provider value={value}>{children}</ThemeContext.Provider>
   );
 };
