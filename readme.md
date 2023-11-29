@@ -1,4 +1,4 @@
-## 👉 [**MOVIE SEARCHER**](https://aston-trainee.netlify.app/) 👈
+## 👉 [**MOVIE SEARCHER**](https://movie-searcher1.netlify.app/) 👈
 *Сайт для поиска фильмов*
 ## 1 уровень (обязательный - необходимый минимум)
 - [x] Реализованы **Требования к функциональности**
