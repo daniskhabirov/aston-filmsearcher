@@ -1,4 +1,4 @@
-## 👉 [**MOVIE SEARCHER**](https://movie-searcher1.netlify.app/) 👈
+## 👉 [**MOVIE SEARCHER**](https://aston-movie-searcher.netlify.app/) 👈
 *Сайт для поиска фильмов*
 ## 1 уровень (обязательный - необходимый минимум)
 - [x] Реализованы **Требования к функциональности**
@@ -44,5 +44,5 @@ npm install
 npm start
 ```
 ## Status badges
-[![Badge lint](https://github.com/daniskhabirov/aston-trainee/actions/workflows/lint.yml/badge.svg)](https://github.com/daniskhabirov/aston-trainee/actions/workflows/lint.yml)
-[![Netlify Status](https://api.netlify.com/api/v1/badges/cb60726c-c4f1-4b5d-9478-b720882cd7fd/deploy-status)](https://movie-searcher1.netlify.app)
+[![Badge lint](https://github.com/dnisanity/aston-movie-searcher/actions/workflows/lint.yml/badge.svg)](https://github.com/dnisanity/aston-movie-searcher/actions/workflows/lint.yml)
+[![Netlify Status](https://api.netlify.com/api/v1/badges/cb60726c-c4f1-4b5d-9478-b720882cd7fd/deploy-status)](https://aston-movie-searcher.netlify.app)
